@@ -49,7 +49,8 @@ G.taps5=ok=>{const z=ZS;const b=id=>{const q=UI.find(u=>u.id===id);return q?[q.x
  // правильный набор = подмножество с суммой 100
  const n=C.length;let best=null;for(let m=1;m<1<<n;m++){let t=0;for(let i=0;i<n;i++)if(m>>i&1)t+=C[i];if(t===100){best=m;break}}
  if(ok){const out=[];for(let i=0;i<n;i++)if((best>>i&1)&&!z.used.includes(i))out.push(b('can'+i));return out}
- return C.map((v,i)=>i).filter(i=>!z.used.includes(i)).map(i=>b('can'+i))};
+ const free=C.map((v,i)=>i).filter(i=>!z.used.includes(i));const perm=a=>a.length<2?[a]:a.flatMap((x,i)=>perm(a.filter((_,j)=>j!==i)).map(p=>[x,...p]));
+ for(const p of perm(free)){let t=s,out=[];for(const i of p){t+=C[i];out.push(i);if(t===100)break;if(t>100)return out.map(i=>b('can'+i))}}return[]};
 // ---- общий тестовый интерфейс ----
 G.taps3=ok=>{const z=ZS;if(z.phase!=='rank')return[];const want=z.order[z.ranked.length];const n=ok?want:z.order.find(n=>n!==want&&!z.ranked.includes(n));const b=UI.find(u=>u.id==='r_'+n);return b?[[b.x,b.y]]:[]};
 G.taps=ok=>{const f={z1:G.taps1,z2:G.taps2,z3:G.taps3,z4:G.taps4,z5:G.taps5}[scene];return f?f(ok):[]};

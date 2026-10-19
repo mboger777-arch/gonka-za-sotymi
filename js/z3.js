@@ -46,7 +46,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
    const dz=r.pos-(z.pos+1400);if(Math.abs(dz)<260&&Math.abs(r.x-z.px)<.42){if(dz>0){z.sp*=.85;r.pos+=60}else{r.pos-=60}z.px+=(z.px<r.x?-1:1)*.18;SFX.bump();shake=4}}
   if(z.phase==='race'&&z.pos>=TRACKLEN){z.phase='finish';z.ft=T;SFX.star();burst(640,300,80,'conf',null,1.4);run(async()=>{await say('r_finish');await wait(500);SC.z3.rankStart()})}},
  rankStart(){const z=ZS;engine(false);z.phase='rank';z.ranked=[];const R=RACES[z.ri];const order=Object.keys(R.times).sort((a,b)=>R.times[a]-R.times[b]);z.order=order;
-  cast=['tina','zap','lastik','sotik'].map(n=>hero(n,0,{h:n==='zap'?200:310,pose:n==='lastik'?'laugh':''}));GOAL='Нажимай гонщиков: от самого быстрого';
+  cast=['tina','zap','lastik','sotik'].map(n=>hero(n,0,{h:n==='zap'?220:350,pose:n==='lastik'?'laugh':''}));GOAL='Нажимай гонщиков: от самого быстрого';
   run(async()=>{await say(R.claim);await say('r_rank')})},
  pick(n){const z=ZS;if(z.phase!=='rank'||z.lock||z.ranked.includes(n))return;const want=z.order[z.ranked.length];
   if(n===want){z.ranked.push(n);hop(n);SFX.ok();if(n==='lastik')pose('lastik','angry');

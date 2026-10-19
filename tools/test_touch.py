@@ -52,10 +52,12 @@ async def run(b,W,H,F,R):
         await pg.wait_for_timeout(200);continue
       p0=await pg.evaluate('G.prog()');m0=await pg.evaluate('ZS?ZS.mist:0')
       await unlock_ms()
-      await taps(False)
+      nw=await taps(False)
       tm=time.time()
+      if nw==0:R.append(f'{tag} {sc} step {p0}: no wrong choice possible');tm=-1e9
       while await pg.evaluate('ZS?ZS.mist:0')<=m0 and time.time()-tm<3:await pg.wait_for_timeout(30)
-      if await pg.evaluate('ZS?ZS.mist:0')<=m0:F.append(f'{tag} {sc} step {p0}: mistake not registered')
+      if nw==0:pass
+      elif await pg.evaluate('ZS?ZS.mist:0')<=m0:F.append(f'{tag} {sc} step {p0}: mistake not registered')
       else:
         ms=await unlock_ms();R.append(f'{tag} {sc} unlock after mistake {ms:.0f}ms')
         if ms>600:F.append(f'{tag} {sc} input locked {ms:.0f}ms after mistake')
