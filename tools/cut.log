@@ -1,0 +1,22 @@
+heroes_v1 tina (451, 875) 
+heroes_v1 sotik (428, 843) 
+heroes_v1 zap (518, 783) 
+villain_v1 lastik (854, 812) 
+!! tina_poses found 2 need 3 [(71, 16, 854, 686), (882, 35, 1185, 685)]
+sotik_poses sotik_cheer (460, 841) 
+sotik_poses sotik_thumb (334, 841) 
+sotik_poses sotik_wow (326, 840) 
+zap_poses zap_sit (476, 809) 
+zap_poses zap_wave (547, 812) 
+zap_poses zap_crouch (683, 780) 
+!! lastik_poses found 2 need 3 [(22, 51, 829, 655), (819, 58, 1222, 659)]
+lastik_fly lastik_fly (876, 707) 
+!! karts_back found 2 need 4 [(1, 164, 620, 562), (644, 138, 1280, 562)]
+race_props tree (534, 700) 
+race_props lamp (315, 700) 
+race_props arch (700, 574) 
+race_props stand (700, 591) 
+race_props boost (690, 576) 
+race_props puddle (671, 486) 
+race_props coin (529, 601) 
+race_props gate (700, 554) 

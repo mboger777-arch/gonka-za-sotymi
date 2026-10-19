@@ -1,0 +1,97 @@
+{
+ "tina": {
+  "w": 451,
+  "h": 875,
+  "edge": false
+ },
+ "sotik": {
+  "w": 428,
+  "h": 843,
+  "edge": false
+ },
+ "zap": {
+  "w": 518,
+  "h": 783,
+  "edge": false
+ },
+ "lastik": {
+  "w": 854,
+  "h": 812,
+  "edge": false
+ },
+ "sotik_cheer": {
+  "w": 460,
+  "h": 841,
+  "edge": false
+ },
+ "sotik_thumb": {
+  "w": 334,
+  "h": 841,
+  "edge": false
+ },
+ "sotik_wow": {
+  "w": 326,
+  "h": 840,
+  "edge": false
+ },
+ "zap_sit": {
+  "w": 476,
+  "h": 809,
+  "edge": false
+ },
+ "zap_wave": {
+  "w": 547,
+  "h": 812,
+  "edge": false
+ },
+ "zap_crouch": {
+  "w": 683,
+  "h": 780,
+  "edge": false
+ },
+ "lastik_fly": {
+  "w": 876,
+  "h": 707,
+  "edge": false
+ },
+ "tree": {
+  "w": 534,
+  "h": 700,
+  "edge": false
+ },
+ "lamp": {
+  "w": 315,
+  "h": 700,
+  "edge": false
+ },
+ "arch": {
+  "w": 700,
+  "h": 574,
+  "edge": false
+ },
+ "stand": {
+  "w": 700,
+  "h": 591,
+  "edge": false
+ },
+ "boost": {
+  "w": 690,
+  "h": 576,
+  "edge": false
+ },
+ "puddle": {
+  "w": 671,
+  "h": 486,
+  "edge": false
+ },
+ "coin": {
+  "w": 529,
+  "h": 601,
+  "edge": false
+ },
+ "gate": {
+  "w": 700,
+  "h": 554,
+  "edge": false
+ }
+}
