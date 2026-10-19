@@ -93,5 +93,135 @@
   "w": 700,
   "h": 554,
   "edge": false
+ },
+ "scale": {
+  "w": 700,
+  "h": 613,
+  "edge": false
+ },
+ "apple": {
+  "w": 598,
+  "h": 647,
+  "edge": false
+ },
+ "pear": {
+  "w": 453,
+  "h": 689,
+  "edge": false
+ },
+ "banana": {
+  "w": 700,
+  "h": 656,
+  "edge": false
+ },
+ "w_big": {
+  "w": 635,
+  "h": 700,
+  "edge": false
+ },
+ "w_mid": {
+  "w": 580,
+  "h": 673,
+  "edge": false
+ },
+ "w_small": {
+  "w": 554,
+  "h": 627,
+  "edge": false
+ },
+ "tag": {
+  "w": 700,
+  "h": 505,
+  "edge": false
+ },
+ "b_ok": {
+  "w": 361,
+  "h": 308,
+  "edge": false
+ },
+ "b_undo": {
+  "w": 359,
+  "h": 368,
+  "edge": false
+ },
+ "b_home": {
+  "w": 406,
+  "h": 391,
+  "edge": false
+ },
+ "b_sound": {
+  "w": 370,
+  "h": 366,
+  "edge": false
+ },
+ "b_up": {
+  "w": 287,
+  "h": 387,
+  "edge": false
+ },
+ "b_down": {
+  "w": 296,
+  "h": 392,
+  "edge": false
+ },
+ "b_grab": {
+  "w": 369,
+  "h": 452,
+  "edge": false
+ },
+ "b_boost": {
+  "w": 285,
+  "h": 419,
+  "edge": false
+ },
+ "lock": {
+  "w": 452,
+  "h": 637,
+  "edge": false
+ },
+ "b_zoom": {
+  "w": 608,
+  "h": 636,
+  "edge": false
+ },
+ "logo": {
+  "w": 700,
+  "h": 267,
+  "edge": false
+ },
+ "rotate": {
+  "w": 610,
+  "h": 700,
+  "edge": false
+ },
+ "tina_cheer": {
+  "w": 548,
+  "h": 875,
+  "edge": false
+ },
+ "tina_point": {
+  "w": 478,
+  "h": 870,
+  "edge": false
+ },
+ "tina_think": {
+  "w": 385,
+  "h": 873,
+  "edge": false
+ },
+ "lastik_laugh": {
+  "w": 609,
+  "h": 862,
+  "edge": false
+ },
+ "lastik_angry": {
+  "w": 574,
+  "h": 861,
+  "edge": false
+ },
+ "lastik_sad": {
+  "w": 562,
+  "h": 862,
+  "edge": false
  }
 }

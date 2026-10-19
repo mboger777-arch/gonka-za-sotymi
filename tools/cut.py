@@ -42,7 +42,7 @@ for sh,(dst,names) in SHEETS.items():
             if szs[i]<0.002*m.size:continue
             col=[j for j in range(len(cb)-1) if cb[j]<=cx<cb[j+1]][0];lab[l2==i+1]=col+1
         n=len(cb)-1
-    else: lab,n=ndimage.label(ndimage.binary_dilation(m,iterations=int(Wd*.012)))
+    else: lab,n=ndimage.label(ndimage.binary_dilation(m,iterations={'ui_boards':3}.get(sh,int(Wd*.012))))
     objs=ndimage.find_objects(lab);sz=[(lab[o]==i+1).sum() for i,o in enumerate(objs)]
     bb=[(o[1].start,o[0].start,o[1].stop,o[0].stop) for i,o in enumerate(objs) if sz[i]>0.04*max(sz)]
     if len(names)==1: bb=[(min(b[0] for b in bb),min(b[1] for b in bb),max(b[2] for b in bb),max(b[3] for b in bb))]
@@ -69,7 +69,7 @@ for sh,(dst,names) in SHEETS.items():
         o=clean(np.array(remove(P,session=S,post_process_mask=True)));al=o[...,3]
         touch=bool(al[:3].max()>40 or al[-3:].max()>40 or al[:,:3].max()>40 or al[:,-3:].max()>40)
         im=Image.fromarray(o);im=im.crop(im.getbbox())
-        mx=900 if dst=='sprites' else 700
+        mx=900 if dst=='sprites' else (1200 if nm in ('ruler','board','logo','rotate','tube','sc_beam') else 700)
         if max(im.size)>mx: k=mx/max(im.size);im=im.resize((round(im.width*k),round(im.height*k)),Image.LANCZOS)
         im.save(f'assets/{dst}/{nm}.png',optimize=True);INFO[nm]={'w':im.width,'h':im.height,'edge':touch};print(sh,nm,im.size,'EDGE!' if touch else '',flush=True)
     json.dump(INFO,open('tools/cut_info.json','w'),indent=1)
