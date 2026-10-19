@@ -19,7 +19,7 @@ SC.z1={enter(){cast=[hero('tina',0)];const z=zoneStart(1,{a:0,b:100,za:0,zb:100,
   setTimeout(()=>{if(ZS!==z)return;if(v===s.t){z.badge={v,ok:1};SFX.ok();burst(z1x(v),z1geo().top-120,30,'spark',50);z.lock=true;
     run(async()=>{await say(Math.random()<.5?'w_ok1':'w_ok2');z.lock=false;if(z.zoom!=null)SC.z1.unzoom();await wait(300);SC.z1.next()})}
    else{z.badge={v,ok:0};mistake();sayNow(v<s.t?'w_right':'w_left');}},G.fast?20:480)},
- tap(x,y){const z=ZS,g=z1geo();if(z.step<0||z.lock||z.zt<1)return;if(y<g.top-170||y>g.top+g.rh+60||x<g.a0-50||x>g.a1+50)return;
+ tap(x,y){const z=ZS,g=z1geo();if(z.step<0||z.lock||z.zt<1)return;if(y<g.top-170||y>g.top+g.rh+70||x<g.a0-50||x>g.a1+50)return;
   const s=Z1T[z.step];let v=z1v(x);
   if(s.m===1){v=clamp(Math.round(v/10)*10,0,100);this.jump(v);return}
   if(z.zoom==null){const seg=clamp(Math.floor(v/10),0,9);this.zoomTo(seg);return}
@@ -38,17 +38,17 @@ SC.z1={enter(){cast=[hero('tina',0)];const z=zoneStart(1,{a:0,b:100,za:0,zb:100,
   // подписи над линейкой
   for(let h=Math.ceil(z.a);h<=Math.floor(z.b);h++){const x=z1x(h);const whole=h%100===0,ten=h%10===0;let al=0,fs=0;
    if(whole){al=1;fs=58}else if(ten){al=z.reveal*clamp((px*10-50)/30,0,1);fs=px*10>300?54:40}else{al=clamp((px-58)/20,0,1);fs=36}
-   if(al<=0)continue;X.globalAlpha=al;txt(dec(h),x,g.top-34,fs,'#fff',{f:NUM,st:'#3a1c08',lw:fs*.22,box:null});}
+   if(al<=0)continue;X.globalAlpha=al;txt(dec(h),x,g.top+g.rh+36,fs*1.12,'#fff',{f:NUM,st:'#3a1c08',lw:fs*.13,box:null});}
   X.globalAlpha=1;X.restore();
   // Запятуля стоит на линейке
   const u=clamp((T-z.zap.t0)/(G.fast?.02:.45),0,1),zv=lerp(z.zap.from,z.zap.v,u);let zx=z1x(clamp(zv,z.a,z.b));const hop=Math.sin(u*Math.PI)*110;
   const zh=150;const zy=g.top+4-hop;X.save();if(okI(IM.shadow)){X.globalAlpha=.5;X.drawImage(IM.shadow,zx-50,g.top-6,100,14);X.globalAlpha=1}X.restore();
   spr(u<1?'zap_crouch':(z.badge&&z.badge.ok?'zap_wave':'zap'),zx,zy,zh,{ay:1});GND.push({n:'zap',x:zx,feet:zy+hop,gl:g.top+4,w:zh*aspect('zap'),h:zh,ar:aspect('zap'),src:'zap'});
-  if(z.badge&&u>=1){const bx=zx,by=zy-zh-56;X.save();X.translate(bx,by);sprW('tile',0,0,132);X.restore();txt(dec(z.badge.v),bx,by+2,48,z.badge.ok?'#1d7a2a':'#b02a10',{f:NUM,st:'rgba(255,248,230,.95)',lw:6,box:[bx-56,by-56,bx+56,by+56],id:'badge'})}
+  if(z.badge&&u>=1){const bx=zx+(zx>g.cx+g.w*.3?-130:130),by=zy-zh*.55;X.save();X.translate(bx,by);sprW('tile',0,0,132);X.restore();txt(dec(z.badge.v),bx,by+2,48,z.badge.ok?'#1d7a2a':'#b02a10',{f:NUM,st:'rgba(255,248,230,.95)',lw:6,box:[bx-56,by-56,bx+56,by+56],id:'badge'})}
   drawCast()},
- ui(){const z=ZS,g=z1geo();if(z.step<0&&z.reveal===0){btn('zoom','b_zoom',g.cx,g.top+g.rh+90,120,()=>{if(z.reveal>0)return;z.reveal=.001;
+ ui(){const z=ZS,g=z1geo();if(z.step<0&&z.reveal===0){btn('zoom','b_zoom',g.cx,g.top+g.rh+150,120,()=>{if(z.reveal>0)return;z.reveal=.001;
     run(async()=>{const t0=T;while(z.reveal<1){await wait(30);z.reveal=Math.min(1,(T-t0)/(G.fast?.05:1.2));if(Math.random()<.3)SFX.blip()}await say('w2');SC.z1.next()})},{pulse:1})}
-  if(z.zoom!=null&&!z.lock)btn('back','b_undo',g.cx,g.top+g.rh+90,110,()=>SC.z1.unzoom(),{pulse:z.step>=0&&Math.floor(Z1T[z.step].t/10)!==z.zoom})}};
+  if(z.zoom!=null&&!z.lock)btn('back','b_undo',g.cx,g.top+g.rh+150,110,()=>SC.z1.unzoom(),{pulse:z.step>=0&&Math.floor(Z1T[z.step].t/10)!==z.zoom})}};
 // тест: что нажать (правильно / ошибка) для текущего шага
 G.taps1=ok=>{const z=ZS,s=Z1T[z.step],g=z1geo();if(!s)return[];const yy=g.y;
  if(s.m===1){const v=ok?s.t:(s.t>50?s.t-20:s.t+20);return[[z1x(v),yy]]}

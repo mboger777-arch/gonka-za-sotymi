@@ -14,7 +14,7 @@ async def main():
       if sc!='-':await pg.evaluate(f'G.go("{sc}")')
       if js:await pg.evaluate(js)
       await pg.wait_for_timeout(int(os.environ.get('WAIT','1500')))
-      await pg.screenshot(path=f'{out}/{sc if sc!="-" else "x"}{("_"+str(abs(hash(js))%1000)) if js else ""}.png')
+      await pg.screenshot(path=f'{out}/{sc if sc!="-" else "x"}{os.environ.get("SUF","")}.png')
     print('errors:',errs[:10])
     await b.close()
 asyncio.run(main())

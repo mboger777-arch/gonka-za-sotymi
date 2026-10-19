@@ -25,7 +25,7 @@ SC.z4={enter(){zoneStart(4,{d:0,td:0,i:0,got:[],open:{},grab:-9,hold:0,ht:0});BG
   // клешня
   const gu=clamp((T-z.grab)/.5,0,1);if(gu<1){const ext=Math.sin(gu*Math.PI)*(g.sx-g.ox-90);X.save();X.strokeStyle='#8a6a2a';X.lineWidth=8;X.lineCap='round';X.beginPath();X.moveTo(g.sx-110,sy+20);X.lineTo(g.sx-110-ext,sy+20);X.stroke();X.restore();spr('b_grab',g.sx-110-ext,sy+20,46)}
   // табличка глубины над лодкой
-  const bw=210,bh=bw/aspect('board'),by=sy-sh/2-bh/2-6;sprW('board',g.sx,by,bw);txt(dec(Math.round(z.d/5)*5)+' м',g.sx,by+2,44,'#3a1c08',{f:NUM,st:0,box:[g.sx-bw*.42,by-bh*.3,g.sx+bw*.42,by+bh*.3],id:'depth'});
+  const bw=210,bh=bw/aspect('board'),by=sy+sh/2+bh/2+4;sprW('board',g.sx,by,bw);txt(dec(Math.round(z.d/5)*5)+' м',g.sx,by+2,44,'#3a1c08',{f:NUM,st:0,box:[g.sx-bw*.42,by-bh*.3,g.sx+bw*.42,by+bh*.3],id:'depth'});
   // глубиномер
   const th=g.yBot-g.yTop+90;spr('tube',g.gx,(g.yTop+g.yBot)/2,th);
   for(let d=0;d<=300;d+=10){const y=z4y(d),maj=d%50===0;X.strokeStyle=maj?'#1a2a4a':'rgba(26,42,74,.7)';X.lineWidth=maj?4:2;X.beginPath();X.moveTo(g.gx-(maj?18:10),y);X.lineTo(g.gx+(maj?18:10),y);X.stroke();

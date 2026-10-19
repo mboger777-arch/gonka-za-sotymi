@@ -2,7 +2,7 @@
 // ===== Зона 2: Рынок — весы с гирьками 0,1 / 0,05 / 0,01 и ценники (бросаем Запятулю) =====
 const Z2F=[{f:'apple',t:25,k:'k_apple',nm:'Яблоко'},{f:'pear',t:37,k:'k_pear',nm:'Груша'},{f:'banana',t:52,k:'k_banana',nm:'Бананы'}];
 const Z2W=[{id:'w_big',v:10,h:118},{id:'w_mid',v:5,h:96},{id:'w_small',v:1,h:78}];
-const Z2P=[{it:'bread',d:'125',c:1,k:'k_bread',nm:'Батон'},{it:'milk',d:'085',c:1,k:'k_milk',nm:'Молоко'},{it:'cheese',d:'1205',c:2,k:'k_cheese',nm:'Сыр'},{it:'honey',d:'34',c:1,k:'k_honey',nm:'Мёд'}];
+const Z2P=[{it:'bread',d:'125',c:1,k:'k_bread',nm:'Батон'},{it:'milk',d:'085',c:1,k:'k_milk',nm:'Молоко'},{it:'cheese',d:'1205',c:2,k:'k_cheese',nm:'Сыр'},{it:'honey',d:'345',c:2,k:'k_honey',nm:'Мёд'}];
 function z2geo(){const L=safeL()+heroX(cast[0])+20,R=safeR()-10;const trayW=Math.min(420,(R-L)*.4);const cx=L+(R-L-trayW)*.5+20,gy=gY();const stH=320,top=gy-stH;const half=Math.min(220,(R-L-trayW)*.36);
  return{cx,gy,top,half,trayX0:R-trayW,trayW,R}}
 function panXY(side){const g=z2geo(),z=ZS;const a=z.ang;const ex=g.cx+Math.cos(a)*g.half*side,ey=g.top+14+Math.sin(a)*g.half*side;return[ex,ey]}
