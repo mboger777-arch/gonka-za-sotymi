@@ -82,3 +82,22 @@ Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
 18 w3 0.111  Каждая десятая тоже делится на 10 частей, это сотые.
 Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
 Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+19 w_t036 0.333  Найди 0,36, сначала нажми между тремя и четырьмя десятыми,  лупа увеличит.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+20 w_t082 0.556  Найди 0,82, какую десятую увеличим.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+21 w_t005 0.2  НОЛЬ ЦЕЛИK ПЯТЬ СОТЫХ!  Где живут самые маленькие числа?
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+22 w_zoomed 0.0  Лупа увеличила, теперь видно сотые. Прыгай!
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+23 w_wrongseg 0.0  Тут другие числа.  Нажми назад и выбери другую десятую.
+manifest 24
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
