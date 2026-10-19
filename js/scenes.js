@@ -48,7 +48,7 @@ SC.map={enter(){cast=[hero('tina',0,{h:380}),hero('zap',0,{h:220})];GOAL='';
    btn('zone'+z.n,'tile',x,y+bob,d,()=>{if(!open){sayNow('m_lock');SFX.bad();return}go(z.sc)},{pulse:open&&!done});
    txt(String(z.n),x,y+bob+2,70,open?'#5a2a0a':'#8a7a6a',{f:NUM,st:'rgba(255,246,220,.9)',lw:6,box:[x-d*.4,y+bob-d*.4,x+d*.4,y+bob+d*.4],id:'zn'});
    if(!open)spr('lock',x+38,y+bob+34,56);if(done)spr('star',x+40,y+bob-40,60,{rot:Math.sin(T*2)*.1});
-   const lw=210,lh=lw/aspect('board');X.save();sprW('board',x,y+bob+d/2+lh/2-4,lw);X.restore();textIn(z.name,x,y+bob+d/2+lh/2-4,lw*.8,lh*.55,32,'#4a2208',{f:FONT,st:0,id:'zname'})})}};
+   const lw=250,lh=lw/aspect('board');X.save();sprW('board',x,y+bob+d/2+lh/2-4,lw);X.restore();textIn(z.name,x,y+bob+d/2+lh/2-4,lw*.82,lh*.62,40,'#4a2208',{f:FONT,st:0,id:'zname'})})}};
 // ---- финал ----
 SC.fin={enter(){cast=[hero('tina',0),hero('zap',0),hero('lastik',0,{pose:'sad',h:390}),hero('sotik',0)];ZS=zoneStart(6,{lock:true});
   run(async()=>{await wait(400);cheer();burst(640,250,120,'conf',null,1.5);await say('f_sorry');cheer();await say('f_end');hop('zap');await say('f_end2');pose('lastik','sad');ZS.lock=false;ZS.done=true})},

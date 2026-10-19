@@ -16,7 +16,7 @@ function raceInit(ri){const R=RACES[ri],z=ZS;Object.assign(z,{ri,phase:'count',p
   if(i===2||i===4)O.push({t:'puddle',pos:p+5600,x:(i===2?-.3:.35),flat:1,ww:.6})});
  if(!SV.secret[2]&&ri===0)O.push({t:'secret',pos:33500,x:-.8,wh:330,ww:.3});
  O.sort((a,b)=>a.pos-b.pos);
- z.rivals=[{n:'tina',pos:600,x:-.45},{n:'zap',pos:300,x:.45},{n:'lastik',pos:900,x:0}].map(r=>Object.assign(r,{sp:0,tx:r.x,tt:0}));
+ z.rivals=[{n:'tina',pos:2700,x:-.45},{n:'zap',pos:2300,x:.45},{n:'lastik',pos:3300,x:0}].map(r=>Object.assign(r,{sp:0,tx:r.x,tt:0}));
  cast=[];GOAL='';run(async()=>{await say(R.intro);if(ri===0)await say('r2');await say('r_go')})}
 SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
  hold(id,x,y){},
@@ -41,7 +41,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
    else if(o.t==='puddle'&&Math.abs(z.px-o.x)<.45){o.done=1;z.slow=.9;SFX.bump();shake=6;say('r_puddle').catch(()=>{})}
    else if(o.t==='secret'&&Math.abs(z.px-o.x)<.45){o.done=1;const v=vis();gotSecret('z3',640,v.y0+v.h-250)}}
   // соперники держатся рядом (фотофиниш)
-  for(const r of z.rivals){const d=z.pos-r.pos;let ts=1850+d*.35+Math.sin(T*.7+r.pos*.001)*120;if(z.phase==='finish')ts=r.pos<TRACKLEN+400?1400:500;ts=clamp(ts,1200,2700);
+  for(const r of z.rivals){const d=(z.pos+1600)-r.pos;let ts=1850+d*.35+Math.sin(T*.7+r.pos*.001)*120;if(z.phase==='finish')ts=r.pos<TRACKLEN+400?1400:500;ts=clamp(ts,1200,2700);
    r.sp+=(ts-r.sp)*Math.min(1,dt*1.2);if(z.phase==='count')r.sp=0;r.pos+=r.sp*dt;if(T>r.tt){r.tt=T+rnd(1.5,3.5);r.tx=rnd(-.7,.7)}r.x+=(r.tx-r.x)*Math.min(1,dt*1.2);
    const dz=r.pos-(z.pos+1400);if(Math.abs(dz)<260&&Math.abs(r.x-z.px)<.42){if(dz>0){z.sp*=.85;r.pos+=60}else{r.pos-=60}z.px+=(z.px<r.x?-1:1)*.18;SFX.bump();shake=4}}
   if(z.phase==='race'&&z.pos>=TRACKLEN){z.phase='finish';z.ft=T;SFX.star();burst(640,300,80,'conf',null,1.4);run(async()=>{await say('r_finish');await wait(500);SC.z3.rankStart()})}},
@@ -82,7 +82,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
    if(o.t==='secret'){const h=o.wh*p.sc;X.save();X.shadowColor='#ffd75a';X.shadowBlur=20;spr('comma',p.x,p.y-h*.8,h,{rot:Math.sin(T*3)*.3});X.restore();continue}
    const h=(o.wh||1400)*p.sc;spr(o.t,p.x,p.y,h,{ay:.97})}
   // свой картинг
-  const kw=Math.min(330,v.w*.24),bump=Math.sin(T*24)*1.5*(z.sp/2000);const kx=640+z.steer*16,ky=yB-14+bump;
+  const kw=Math.min(300,v.w*.22),bump=Math.sin(T*24)*1.5*(z.sp/2000);const kx=640+z.steer*16,ky=yB-14+bump;
   if(z.boost>0&&Math.random()<.7){PS.push({x:kx+rnd(-50,50),y:ky-20,vx:rnd(-40,40),vy:rnd(60,160),life:.6,dec:2,kind:'spark',hue:rnd(20,50),s:rnd(4,8),rot:0,vr:0})}
   if(Math.abs(z.px)>1.08&&z.sp>300&&Math.random()<.4)PS.push({x:kx+rnd(-80,80),y:ky-10,vx:rnd(-60,60),vy:rnd(-80,-20),life:.6,dec:1.6,kind:'dust',hue:100,s:rnd(4,9),rot:0,vr:0});
   sprW('kart_sotik',kx,ky,kw,{ay:1,rot:z.steer*.05});GND.push({n:'kart',x:kx,feet:ky,gl:ky,w:kw,h:kw/aspect('kart_sotik'),ar:aspect('kart_sotik'),src:'kart_sotik'})},
@@ -94,7 +94,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
   const cx=bx+bw/2+60;spr('coin',cx,by,62);txt('×'+z.coins,cx+60,by,40,'#fff',{f:NUM,st:'#3a1c08',lw:7,box:null});
   // место
   const place=1+z.rivals.filter(r=>r.pos>z.pos+1400).length;txt(place+'-й',safeR()-70,safeT()+40,56,'#ffe066',{f:NUM,st:'#3a1c08',lw:9,box:null});
-  if(z.phase==='count'){const k=Math.floor((T-z.cntT)/(G.fast?.15:1));const s=k<3?String(3-k):'Старт!';const d=230;spr('dial',640,v.y0+v.h*.42,d);txt(s,640,v.y0+v.h*.42+4,k<3?120:58,'#fff',{f:NUM,st:'#b0300a',lw:12,box:[640-d*.4,v.y0+v.h*.42-d*.4,640+d*.4,v.y0+v.h*.42+d*.4],id:'cnt'})}
+  if(z.phase==='count'){const k=Math.floor((T-z.cntT)/(G.fast?.15:1));const s=k<3?String(3-k):'Старт!';const d=180,cy=v.y0+v.h*.42-10;spr('dial',640,cy,d);txt(s,640,cy+4,k<3?100:44,'#fff',{f:NUM,st:'#b0300a',lw:10,box:[640-d*.4,cy-d*.4,640+d*.4,cy+d*.4],id:'cnt'})}
   // следующие ворота: что сравнить
   const g=z.objs.find(o=>o.t==='gate'&&!o.done&&o.x<0&&o.pos>z.pos);if(g&&g.pos-z.pos<16000&&z.phase==='race'&&!talk){GOAL='Въезжай в ворота с большим числом!'}else if(!talk)GOAL=''},
  bubbleX(bw){return 640}};

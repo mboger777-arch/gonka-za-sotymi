@@ -135,63 +135,63 @@
   "edge": false
  },
  "b_ok": {
-  "w": 361,
-  "h": 308,
+  "w": 597,
+  "h": 671,
   "edge": false
  },
  "b_undo": {
-  "w": 359,
-  "h": 368,
+  "w": 596,
+  "h": 671,
   "edge": false
  },
  "b_home": {
-  "w": 406,
-  "h": 391,
+  "w": 599,
+  "h": 668,
   "edge": false
  },
  "b_sound": {
-  "w": 370,
-  "h": 366,
+  "w": 593,
+  "h": 669,
   "edge": false
  },
  "b_up": {
-  "w": 287,
-  "h": 387,
+  "w": 595,
+  "h": 669,
   "edge": false
  },
  "b_down": {
-  "w": 296,
-  "h": 392,
+  "w": 586,
+  "h": 672,
   "edge": false
  },
  "b_grab": {
-  "w": 369,
-  "h": 452,
+  "w": 589,
+  "h": 674,
   "edge": false
  },
  "b_boost": {
-  "w": 285,
-  "h": 419,
+  "w": 588,
+  "h": 676,
   "edge": false
  },
  "lock": {
-  "w": 452,
-  "h": 637,
+  "w": 460,
+  "h": 680,
   "edge": false
  },
  "b_zoom": {
-  "w": 608,
-  "h": 636,
+  "w": 594,
+  "h": 677,
   "edge": false
  },
  "logo": {
-  "w": 700,
-  "h": 267,
+  "w": 1200,
+  "h": 457,
   "edge": false
  },
  "rotate": {
-  "w": 610,
-  "h": 700,
+  "w": 729,
+  "h": 836,
   "edge": false
  },
  "tina_cheer": {
@@ -222,6 +222,146 @@
  "lastik_sad": {
   "w": 562,
   "h": 862,
+  "edge": false
+ },
+ "kart_sotik": {
+  "w": 679,
+  "h": 793,
+  "edge": false
+ },
+ "kart_tina": {
+  "w": 578,
+  "h": 802,
+  "edge": false
+ },
+ "kart_zap": {
+  "w": 595,
+  "h": 787,
+  "edge": false
+ },
+ "kart_lastik": {
+  "w": 683,
+  "h": 811,
+  "edge": false
+ },
+ "board": {
+  "w": 905,
+  "h": 212,
+  "edge": false
+ },
+ "bubble": {
+  "w": 700,
+  "h": 620,
+  "edge": false
+ },
+ "tile": {
+  "w": 640,
+  "h": 700,
+  "edge": false
+ },
+ "dial": {
+  "w": 662,
+  "h": 700,
+  "edge": false
+ },
+ "tube": {
+  "w": 249,
+  "h": 806,
+  "edge": false
+ },
+ "ruler": {
+  "w": 1200,
+  "h": 152,
+  "edge": false
+ },
+ "sub": {
+  "w": 700,
+  "h": 484,
+  "edge": false
+ },
+ "oyster_open": {
+  "w": 700,
+  "h": 650,
+  "edge": false
+ },
+ "oyster": {
+  "w": 700,
+  "h": 553,
+  "edge": false
+ },
+ "comma": {
+  "w": 447,
+  "h": 700,
+  "edge": false
+ },
+ "star": {
+  "w": 679,
+  "h": 681,
+  "edge": false
+ },
+ "sc_stand": {
+  "w": 260,
+  "h": 700,
+  "edge": false
+ },
+ "sc_beam": {
+  "w": 869,
+  "h": 95,
+  "edge": false
+ },
+ "sc_pan": {
+  "w": 550,
+  "h": 700,
+  "edge": false
+ },
+ "sc_pan2": {
+  "w": 545,
+  "h": 700,
+  "edge": false
+ },
+ "rocket": {
+  "w": 374,
+  "h": 700,
+  "edge": false
+ },
+ "can_red": {
+  "w": 302,
+  "h": 696,
+  "edge": false
+ },
+ "can_blue": {
+  "w": 300,
+  "h": 696,
+  "edge": false
+ },
+ "can_green": {
+  "w": 299,
+  "h": 696,
+  "edge": false
+ },
+ "can_yellow": {
+  "w": 300,
+  "h": 696,
+  "edge": false
+ },
+ "bread": {
+  "w": 700,
+  "h": 365,
+  "edge": false
+ },
+ "milk": {
+  "w": 311,
+  "h": 700,
+  "edge": false
+ },
+ "cheese": {
+  "w": 700,
+  "h": 676,
+  "edge": false
+ },
+ "honey": {
+  "w": 638,
+  "h": 700,
   "edge": false
  }
 }

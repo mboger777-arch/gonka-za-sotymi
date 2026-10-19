@@ -3,8 +3,8 @@
 const Z2F=[{f:'apple',t:25,k:'k_apple',nm:'Яблоко'},{f:'pear',t:37,k:'k_pear',nm:'Груша'},{f:'banana',t:52,k:'k_banana',nm:'Бананы'}];
 const Z2W=[{id:'w_big',v:10,h:118},{id:'w_mid',v:5,h:96},{id:'w_small',v:1,h:78}];
 const Z2P=[{it:'bread',d:'125',c:1,k:'k_bread',nm:'Батон'},{it:'milk',d:'085',c:1,k:'k_milk',nm:'Молоко'},{it:'cheese',d:'1205',c:2,k:'k_cheese',nm:'Сыр'},{it:'honey',d:'34',c:1,k:'k_honey',nm:'Мёд'}];
-function z2geo(){const L=safeL()+heroX(cast[0])+20,R=safeR()-170;const cx=L+(R-L)*.47,gy=gY();const stH=330,top=gy-stH;const half=Math.min(250,(R-L)*.3);
- return{cx,gy,top,half,trayX:safeR()-85,R}}
+function z2geo(){const L=safeL()+heroX(cast[0])+20,R=safeR()-10;const trayW=Math.min(420,(R-L)*.4);const cx=L+(R-L-trayW)*.5+20,gy=gY();const stH=320,top=gy-stH;const half=Math.min(220,(R-L-trayW)*.36);
+ return{cx,gy,top,half,trayX0:R-trayW,trayW,R}}
 function panXY(side){const g=z2geo(),z=ZS;const a=z.ang;const ex=g.cx+Math.cos(a)*g.half*side,ey=g.top+14+Math.sin(a)*g.half*side;return[ex,ey]}
 const PANH=230;
 SC.z2={enter(){cast=[hero('sotik',0)];zoneStart(2,{part:1,i:0,pan:[],fly:[],ang:0,tag:null,place:null,comma:null});this.fruit(0);
@@ -34,7 +34,7 @@ SC.z2={enter(){cast=[hero('sotik',0)];zoneStart(2,{part:1,i:0,pan:[],fly:[],ang:
    // стойка, коромысло, чаши
    const stH=g.gy-g.top+20;spr('sc_stand',g.cx,g.gy,stH,{ay:1});GND.push({n:'scale',x:g.cx,feet:g.gy,gl:g.gy,w:60,h:stH,ar:aspect('sc_stand'),src:'sc_stand'});
    for(const side of[-1,1]){const[ex,ey]=panXY(side);const pw=PANH*aspect('sc_pan');spr('sc_pan',ex,ey-8,PANH,{ay:0});const dishY=ey-8+PANH*.8;
-    if(side<0){spr(f.f,ex,dishY+6,f.f==='banana'?120:130,{ay:1});const tx=ex,ty=dishY+70;X.save();sprW('tag',tx,ty,170);X.restore();txt(dec(f.t)+' кг',tx+12,ty+4,38,'#3a1c08',{f:NUM,st:0,box:[tx-60,ty-40,tx+80,ty+40],id:'ftag'})}
+    if(side<0){spr(f.f,ex,dishY+6,f.f==='banana'?92:100,{ay:1});const tx=ex,ty=dishY+70;X.save();sprW('tag',tx,ty,170);X.restore();txt(dec(f.t)+' кг',tx+12,ty+4,38,'#3a1c08',{f:NUM,st:0,box:[tx-60,ty-40,tx+80,ty+40],id:'ftag'})}
     else{// гирьки стопкой
      let xx=ex-pw*.32,row=0,acc=0;const rows=[[]];z.pan.forEach((w,j)=>{const ww=w.h*.55*aspect(w.id)*.0+w.h*aspect(w.id)*.6;if(acc+ww>pw*.7){rows.push([]);acc=0}rows[rows.length-1].push([w,j,ww]);acc+=ww});
      rows.forEach((r,ri)=>{let tw=r.reduce((s,q)=>s+q[2],0),x=ex-tw/2;r.forEach(([w,j,ww])=>{const hh=w.h*.6,yy=dishY+4-ri*hh*.82;const u=clamp((T-w.t0)/.25,0,1);const fy=lerp(yy-160,yy,ease(u));
@@ -44,7 +44,7 @@ SC.z2={enter(){cast=[hero('sotik',0)];zoneStart(2,{part:1,i:0,pan:[],fly:[],ang:
    // коромысло поверх подвесов
    spr('sc_beam',g.cx,g.top+14,40,{rot:z.ang,ay:.5});
    // лоток гирек
-   Z2W.forEach((w,i)=>{const x=g.trayX,y=safeT()+250+i*150;const h=w.h;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=8;spr(w.id,x,y+h/2,h,{ay:1});X.restore();
+   Z2W.forEach((w,i)=>{const x=g.trayX0+g.trayW*(i+.5)/3,h=w.h,lh0=150/aspect('board'),y=g.gy-lh0-h/2;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=8;spr(w.id,x,y+h/2,h,{ay:1});X.restore();GND.push({n:w.id,x,feet:y+h/2,gl:y+h/2,w:h*aspect(w.id),h,ar:aspect(w.id),src:w.id});
     UI.push({id:'w'+w.v,x,y,w:Math.max(110,h*aspect(w.id)),h:Math.max(110,h),fn:()=>SC.z2.add(w)});
     const lw=150,lh=lw/aspect('board');sprW('board',x,y+h/2+lh/2-2,lw);txt(dec(w.v)+' кг',x,y+h/2+lh/2-2,30,'#3a1c08',{f:NUM,st:0,box:[x-lw*.42,y+h/2-2,x+lw*.42,y+h/2+lh-2],id:'wl'})})}
   else{const p=Z2P[z.ti],g=this.tg();X.save();X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=16;X.shadowOffsetY=6;sprW('tag',g.cx,g.y,g.w);X.restore();

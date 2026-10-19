@@ -3,7 +3,7 @@
 // значения — в сотых (0..100)
 const Z1T=[{t:70,m:1,k:'w_t07'},{t:30,m:1,k:'w_t03'},{t:36,m:2,k:'w_t036',pre:'w3'},{t:82,m:2,k:'w_t082'},{t:5,m:2,k:'w_t005'}];
 function z1geo(){const tina=cast[0];const x0=safeL()+heroX(tina)+30,x1=safeR()-30;const w=Math.min(1100,x1-x0);const cx=(x0+x1)/2;
- const rh=w/aspect('ruler');const yTop=bgXY(0,392)[1]-rh;// линейка лежит на верстаке
+ const rh=w/aspect('ruler');const yTop=Math.max(safeT()+330,bgXY(0,392)[1]-rh);// линейка прислонена к верстаку, ниже облачка
  return{cx,w,rh,y:yTop+rh/2,top:yTop,a0:cx-w/2+w*.055,a1:cx+w/2-w*.055}}
 function z1x(v){const g=z1geo(),z=ZS;return g.a0+(v-z.a)/(z.b-z.a)*(g.a1-g.a0)}
 function z1v(x){const g=z1geo(),z=ZS;return z.a+(x-g.a0)/(g.a1-g.a0)*(z.b-z.a)}
@@ -32,7 +32,7 @@ SC.z1={enter(){cast=[hero('tina',0)];const z=zoneStart(1,{a:0,b:100,za:0,zb:100,
   X.save();X.beginPath();X.rect(g.a0-12,g.top-260,g.a1-g.a0+24,g.rh+300);X.clip();
   const px=(g.a1-g.a0)/(z.b-z.a);// пикселей на сотую
   for(let h=Math.ceil(z.a);h<=Math.floor(z.b);h++){const x=z1x(h);const whole=h%100===0,ten=h%10===0;
-   let len,al,lw;if(whole){len=g.rh*.62;al=1;lw=6}else if(ten){len=g.rh*.46;al=z.reveal;lw=5}else{len=g.rh*.28;al=clamp((px-6)/10,0,1);lw=3}
+   let len,al,lw;if(whole){len=g.rh*.62;al=1;lw=6}else if(ten){len=g.rh*.46;al=z.reveal;lw=5}else{len=g.rh*.28;al=clamp((px-16)/10,0,1);lw=3}
    if(al<=0)continue;X.globalAlpha=al;X.strokeStyle='#3a1c08';X.lineWidth=lw;X.lineCap='round';X.beginPath();X.moveTo(x,g.top+g.rh*.12);X.lineTo(x,g.top+g.rh*.12+len);X.stroke()}
   X.globalAlpha=1;
   // подписи над линейкой

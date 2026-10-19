@@ -25,16 +25,22 @@ SHEETS={
  'race_props':('ui',['tree','lamp','arch','stand','boost','puddle','coin','gate']),
  'market_props':('ui',['scale','apple','pear','banana','w_big','w_mid','w_small','tag']),
  'props2':('ui',['ruler','sub','oyster_open','oyster','comma','star']),
- 'props3':('ui',['rocket','can_red','can_blue','can_green','can_yellow','bread','milk','cheese','honey']),
+ 'food':('ui',['bread','milk','cheese','honey']),'rocket_cans':('ui',['rocket','can_red','can_blue','can_green','can_yellow']),
  'ui_buttons':('ui',['b_ok','b_undo','b_home','b_sound','b_up','b_down','b_grab','b_boost','lock','b_zoom']),
  'scale_parts':('ui',['sc_stand','sc_beam','sc_pan','sc_pan2']),'ui_boards':('ui',['board','bubble','tile','dial','tube']),'logo_plaque':('ui',['logo']),'rotate':('ui',['rotate'])}
+KEY={'ui_buttons'}
+ONLYN=set(os.environ.get('ONLY','').split(','))-{''}
+FILL={'gate','board','bubble','tile','dial','tube','logo','tag','b_ok','b_undo','b_home','b_sound','b_up','b_down','b_grab','b_boost','b_zoom','coin','comma','star','oyster_open','ruler'}
 INFO=json.load(open('tools/cut_info.json')) if os.path.exists('tools/cut_info.json') else {}
 only=sys.argv[1:]
 for sh,(dst,names) in SHEETS.items():
     if only and sh not in only:continue
     img=Image.open(f'refs/{sh}.jpg').convert('RGB');Wd,Hd=img.size
-    m=np.array(remove(img,session=S,only_mask=True,post_process_mask=True))>90
-    COLS={'tina_poses':[.386,.674],'lastik_poses':[.335,.645],'karts_back':[.259,.495,.723]}
+    if sh in KEY:
+        A=np.array(img).astype(int);bgc=np.median(np.concatenate([A[:4].reshape(-1,3),A[-4:].reshape(-1,3)]),0);KD=np.abs(A-bgc).sum(2)
+        m=ndimage.binary_fill_holes(ndimage.binary_opening(KD>60,iterations=2))
+    else: m=np.array(remove(img,session=S,only_mask=True,post_process_mask=True))>90
+    COLS={'props3':[.27,.355,.437,.518,.598,.73,.792,.875],'tina_poses':[.386,.674],'lastik_poses':[.335,.645],'karts_back':[.259,.495,.723]}
     if sh in COLS:
         l2,n2=ndimage.label(ndimage.binary_dilation(m,iterations=2));cb=[0]+[c*Wd for c in COLS[sh]]+[Wd];lab=np.zeros_like(l2)
         cms=ndimage.center_of_mass(np.ones_like(l2),l2,range(1,n2+1));szs=ndimage.sum(np.ones_like(l2),l2,range(1,n2+1))
@@ -42,7 +48,7 @@ for sh,(dst,names) in SHEETS.items():
             if szs[i]<0.002*m.size:continue
             col=[j for j in range(len(cb)-1) if cb[j]<=cx<cb[j+1]][0];lab[l2==i+1]=col+1
         n=len(cb)-1
-    else: lab,n=ndimage.label(ndimage.binary_dilation(m,iterations={'ui_boards':3}.get(sh,int(Wd*.012))))
+    else: lab,n=ndimage.label(ndimage.binary_dilation(m,iterations={'ui_boards':3,'props2':2,'scale_parts':2,'props3':2,'food':4}.get(sh,int(Wd*.012))))
     objs=ndimage.find_objects(lab);sz=[(lab[o]==i+1).sum() for i,o in enumerate(objs)]
     bb=[(o[1].start,o[0].start,o[1].stop,o[0].stop) for i,o in enumerate(objs) if sz[i]>0.04*max(sz)]
     if len(names)==1: bb=[(min(b[0] for b in bb),min(b[1] for b in bb),max(b[2] for b in bb),max(b[3] for b in bb))]
@@ -63,10 +69,21 @@ for sh,(dst,names) in SHEETS.items():
         cnt=[(lab[y0:y1,x0:x1]==i).sum() for i in ids];me=ids[int(np.argmax(cnt))]
         other=ndimage.binary_dilation((lab>0)&(lab!=me),iterations=4)&~ndimage.binary_dilation(lab==me,iterations=1)
         A=A0.copy();A[other]=bg;imgx=Image.fromarray(A)
+        if ONLYN and nm not in ONLYN:continue
         pad=24;x0=max(0,x0-pad);y0=max(0,y0-pad);x1=min(Wd,x1+pad);y1=min(Hd,y1+pad)
         P=Image.new('RGB',(x1-x0+40,y1-y0+40),img.getpixel((2,2)));P.paste(imgx.crop((x0,y0,x1,y1)),(20,20))
         k=max(1,1000/max(P.size));P=P.resize((int(P.width*k),int(P.height*k)),Image.LANCZOS)
-        o=clean(np.array(remove(P,session=S,post_process_mask=True)));al=o[...,3]
+        if sh in KEY:
+            Pa=np.array(P).astype(int);kd=np.abs(Pa-bgc).sum(2);mk=ndimage.binary_fill_holes(ndimage.binary_opening(kd>60,iterations=2))
+            lb,nn=ndimage.label(mk);
+            if nn>1:
+                sz=ndimage.sum(np.ones_like(lb),lb,range(1,nn+1));mk=lb==(1+int(np.argmax(sz)))
+            mk=ndimage.binary_erosion(mk,iterations=1);al=(np.clip(ndimage.gaussian_filter(mk.astype(float),1.0),0,1)*255).astype(np.uint8)
+            o=np.dstack([np.array(P),al])
+        else: o=clean(np.array(remove(P,session=S,post_process_mask=True)))
+        if nm in FILL:
+            Pa=np.array(P);fm=ndimage.binary_fill_holes(o[...,3]>40);hole=fm&(o[...,3]<250);o[...,:3][hole]=Pa[hole];o[...,3][hole]=255
+        al=o[...,3]
         touch=bool(al[:3].max()>40 or al[-3:].max()>40 or al[:,:3].max()>40 or al[:,-3:].max()>40)
         im=Image.fromarray(o);im=im.crop(im.getbbox())
         mx=900 if dst=='sprites' else (1200 if nm in ('ruler','board','logo','rotate','tube','sc_beam') else 700)

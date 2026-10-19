@@ -1,0 +1,12 @@
+!! props3 found 7 need 9 [(51, 44, 325, 553), (355, 343, 449, 552), (460, 343, 553, 552), (563, 343, 656, 552), (666, 343, 758, 552), (763, 316, 1123, 559), (1121, 374, 1254, 555)]
+ui_buttons b_ok (597, 671) 
+ui_buttons b_undo (596, 671) 
+ui_buttons b_home (599, 668) 
+ui_buttons b_sound (593, 669) 
+ui_buttons b_up (595, 669) 
+ui_buttons b_down (586, 672) 
+ui_buttons b_grab (589, 674) 
+ui_buttons b_boost (588, 676) 
+ui_buttons lock (460, 680) 
+ui_buttons b_zoom (594, 677) 
+race_props gate (700, 554) 

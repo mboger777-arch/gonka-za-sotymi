@@ -1,7 +1,7 @@
 'use strict';
 // ===== Зона 4: Подводная лодка — глубиномер 0..3 м, жемчужины на нужных отметках =====
-const Z4O=[30,75,105,150,180,205,250,275],Z4T=[{t:75,k:'s_t075'},{t:150,k:'s_t15'},{t:205,k:'s_t205'},{t:275,k:'s_t275'}];
-function z4geo(){const v=vis();const yTop=v.y0+232,yBot=gY('sea')-70;const gx=safeR()-70;const ox=bgXY(420,0)[0];return{yTop,yBot,gx,ox,sx:ox+230}}
+const Z4O=[30,75,150,205,250,275],Z4T=[{t:75,k:'s_t075'},{t:150,k:'s_t15'},{t:205,k:'s_t205'},{t:275,k:'s_t275'}];
+function z4geo(){const v=vis();const yTop=v.y0+262,yBot=gY('sea')-60;const gx=safeR()-70;const ox=bgXY(430,0)[0];return{yTop,yBot,gx,ox,sx:ox+260}}
 function z4y(d){const g=z4geo();return g.yTop+d/300*(g.yBot-g.yTop)}
 SC.z4={enter(){zoneStart(4,{d:0,td:0,i:0,got:[],open:{},grab:-9,hold:0,ht:0});BGN='sea';this.task(0);run(async()=>{await wait(300);await say('s1');await say('s2');await say(Z4T[0].k)})},
  task(i){ZS.i=i;GOAL='Опустись на '+dec(Z4T[i].t)+' м и хватай!'},
@@ -18,7 +18,7 @@ SC.z4={enter(){zoneStart(4,{d:0,td:0,i:0,got:[],open:{},grab:-9,hold:0,ht:0});BG
   if(z.hold&&T>z.ht){z.ht=T+.16;this.move(z.hold)}
   const sp=G.fast?400:55;if(Math.abs(z.td-z.d)>.01){z.d+=clamp(z.td-z.d,-sp*DT,sp*DT);if(Math.random()<.4)bubbles(g.sx+120,z4y(z.d)-10,1)}
   // устрицы на уступах скалы
-  for(const d of Z4O){const y=z4y(d),got=z.got.includes(d),op=z.open[d]&&T-z.open[d]<1.6;spr(got||op?'oyster_open':'oyster',g.ox,y+18,70,{ay:1});
+  for(const[k,d]of Z4O.entries()){const y=z4y(d),got=z.got.includes(d),op=z.open[d]&&T-z.open[d]<1.6;spr(got||op?'oyster_open':'oyster',g.ox+(k%2?-46:0),y+16,58,{ay:1});
    if(got){}else if(op&&d===Z4T[z.i].t){}}
   // лодка
   const sy=z4y(z.d)+Math.sin(T*1.6)*3,sh=130;spr('sub',g.sx,sy,sh,{flip:true});
@@ -29,11 +29,11 @@ SC.z4={enter(){zoneStart(4,{d:0,td:0,i:0,got:[],open:{},grab:-9,hold:0,ht:0});BG
   // глубиномер
   const th=g.yBot-g.yTop+90;spr('tube',g.gx,(g.yTop+g.yBot)/2,th);
   for(let d=0;d<=300;d+=10){const y=z4y(d),maj=d%50===0;X.strokeStyle=maj?'#1a2a4a':'rgba(26,42,74,.7)';X.lineWidth=maj?4:2;X.beginPath();X.moveTo(g.gx-(maj?18:10),y);X.lineTo(g.gx+(maj?18:10),y);X.stroke();
-   if(maj)txt(dec(d),g.gx-66,y,34,'#fff',{f:NUM,st:'#0a2a4a',lw:7,box:null})}
+   if(maj)txt(dec(d),g.gx-84,y,34,'#fff',{f:NUM,st:'#0a2a4a',lw:7,box:null})}
   const my=z4y(z.d);X.fillStyle='rgba(255,90,40,.9)';X.fillRect(g.gx-20,my-3,40,6);
   // жемчужины
-  for(let i=0;i<4;i++){const x=safeR()-430+i*64,y=safeT()+40;X.globalAlpha=i<z.got.length?1:.35;spr('oyster_open',x,y,56);X.globalAlpha=1}},
- ui(){const z=ZS,g=z4geo();const bx=g.gx-130,my=(g.yTop+g.yBot)/2;
+  for(let i=0;i<4;i++){const x=safeL()+50+i*64,y=safeB()-40;X.globalAlpha=i<z.got.length?1:.35;spr('oyster_open',x,y,56);X.globalAlpha=1}},
+ ui(){const z=ZS,g=z4geo();const bx=g.gx-190,my=(g.yTop+g.yBot)/2;
   btn('up','b_up',bx,my-120,104,()=>{SC.z4.move(-1);z.hold=-1;z.ht=T+.4});btn('down','b_down',bx,my+10,104,()=>{SC.z4.move(1);z.hold=1;z.ht=T+.4});
   btn('grab','b_grab',bx,my+150,120,()=>SC.z4.grabNow(),{pulse:z.td===Z4T[z.i].t&&Math.abs(z.d-z.td)<.5})}};
 G.taps4=ok=>{const z=ZS,t=Z4T[z.i].t,d=ok?t:(t>=150?t-25:t+25);const b=id=>{const q=UI.find(u=>u.id===id);return q?[q.x,q.y]:null};const g=z4geo();return[[g.gx,z4y(d)],'wait',b('grab')]};
