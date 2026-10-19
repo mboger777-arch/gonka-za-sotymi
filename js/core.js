@@ -96,7 +96,8 @@ function bgDraw(n,dim,ox){const v=vis(),s=bgScale();BGN=n;const b=IM['bg_'+n];
 function wrap(t,maxW){const ws=String(t).split(' '),out=[];let cur='';for(const w of ws){const s=cur?cur+' '+w:w;if(X.measureText(s).width>maxW&&cur){out.push(cur);cur=w}else cur=s}if(cur)out.push(cur);return out}
 function fitText(t,w,h,maxS,font,minS){font=font||BODY;minS=minS||16;for(let s=maxS;s>=minS;s-=2){X.font=s+'px '+font;const L=wrap(t,w);const lh=s*1.16;if(L.length*lh<=h&&L.every(l=>X.measureText(l).width<=w))return{s,L,lh}}X.font=minS+'px '+font;return{s:minS,L:wrap(t,w),lh:minS*1.16}}
 let AUD=null;// аудит текста: каждая надпись регистрирует свой прямоугольник и рамку-контейнер
-function regText(b,box,id){if(AUD)AUD.t.push({id:id||'',b,box})}
+let BASE=null;function mapBox(b){if(!b||!BASE)return b;const m=BASE.inverse().multiply(X.getTransform());if(m.isIdentity)return b;const P=[[b[0],b[1]],[b[2],b[1]],[b[0],b[3]],[b[2],b[3]]].map(([x,y])=>m.transformPoint(new DOMPoint(x,y)));const xs=P.map(p=>p.x),ys=P.map(p=>p.y);return[Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)]}
+function regText(b,box,id){if(AUD)AUD.t.push({id:id||'',b:mapBox(b),box:mapBox(box)})}
 function txt(t,x,y,size,col,o){o=o||{};X.font=size+'px '+(o.f||FONT);X.textAlign=o.al||'center';X.textBaseline='middle';
  if(o.st!==0){X.lineJoin='round';X.lineWidth=o.lw||Math.max(3,size*.16);X.strokeStyle=o.st||'rgba(40,16,4,.9)';X.strokeText(t,x,y)}X.fillStyle=col||'#fff';X.fillText(t,x,y);
  if(AUD&&o.box!==undefined){const w=X.measureText(t).width;const x0=o.al==='left'?x:o.al==='right'?x-w:x-w/2;regText([x0,y-size*.55,x0+w,y+size*.55],o.box,o.id)}}
@@ -176,7 +177,7 @@ const TOUCH=(('ontouchstart' in window)||navigator.maxTouchPoints>0)&&matchMedia
 function loop(now){DT=PORTRAIT()?0:clamp((now-last)/1000,0,.05);last=now;T+=DT;fpsA=fpsA*.95+(1/Math.max(DT,.001))*.05;
  X.setTransform(DPR,0,0,DPR,0,0);X.clearRect(0,0,W,H);
  const sx=(Math.random()-.5)*shake,sy=(Math.random()-.5)*shake;shake*=Math.pow(.004,DT);if(shake<.3)shake=0;
- X.setTransform(DPR*S,0,0,DPR*S,DPR*(OX+sx),DPR*(OY+sy));UI=[];GND=[];if(G.auditReq){G.auditReq=0;AUD={t:[],h:[]};}else AUD=null;stepParticles();
+ X.setTransform(DPR*S,0,0,DPR*S,DPR*(OX+sx),DPR*(OY+sy));BASE=X.getTransform();UI=[];GND=[];if(G.auditReq){G.auditReq=0;AUD={t:[],h:[]};}else AUD=null;stepParticles();
  if(!PORTRAIT()){try{SCN&&SCN.draw()}catch(e){console.error(e)}
  drawParticles();try{if(SCN&&SCN.ui)SCN.ui()}catch(e){console.error(e)}if(scene!=='load'&&scene!=='title')homeBtn();drawTalk();if(AUD)G._aud=AUD}
  if(fade>0){const v=vis();X.fillStyle=`rgba(10,8,24,${fade})`;X.fillRect(v.x0,v.y0,v.w,v.h);fade=Math.max(0,fade-DT*2.6)}

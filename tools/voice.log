@@ -48,3 +48,36 @@ Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
 10 w1 0.182  Эта линейка от нуля до одного.  Нажми на лупу, увидим деление.
 Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
 Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+11 w2 0.1  Единица разделилась на 10 равных частей.  Каждая часть одна десятая.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+12 w_t07 0.75  Помоги за петули прыгнуть на 0,7.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+13 w_t03 0.571  А теперь на 0, 0,3
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+14 w_right 0.0  Мне нужно правее.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+15 w_left 0.0  Мне нужно левее.
+manifest 16
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+16 w_ok1 0.5  ГАФ! ПОПАЛА!
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+17 w_ok2 0.0  Точно! Молодец!
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+18 w3 0.111  Каждая десятая тоже делится на 10 частей, это сотые.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.

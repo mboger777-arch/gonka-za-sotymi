@@ -29,10 +29,10 @@ SC.z5={enter(){cast=[hero('tina',0)];zoneStart(5,{ph:'fuel',r:0,lvl:0,shown:0,us
    const ly=wy1-(wy1-wy0)*f;const gr=X.createLinearGradient(0,ly,0,wy1);gr.addColorStop(0,'rgba(120,230,255,.85)');gr.addColorStop(1,'rgba(20,120,220,.9)');X.fillStyle=gr;X.beginPath();X.moveTo(wx-ww,wy1);for(let x=-ww;x<=ww;x+=4)X.lineTo(wx+x,ly+Math.sin(T*5+x*.1)*3);X.lineTo(wx+ww,wy1);X.fill();X.restore()}
   if(z.ph!=='fuel')return drawCast();
   // шкала бака 0..1
-  const th=g.rh*.9,ty0=g.gy-20-th,ty1=g.gy-20;spr('tube',g.tx,(ty0+ty1)/2,th);const iy0=ty0+th*.08,iy1=ty1-th*.08;const lvlY=d=>iy1-(iy1-iy0)*d/100;
+  const th=g.rh*.72,ty0=g.gy-20-th,ty1=g.gy-20;spr('tube',g.tx,(ty0+ty1)/2,th);const iy0=ty0+th*.08,iy1=ty1-th*.08;const lvlY=d=>iy1-(iy1-iy0)*d/100;
   {const f=clamp(z.lvl,0,115);X.save();X.beginPath();X.roundRect(g.tx-16,iy0-th*.04,32,iy1-iy0+th*.08,16);X.clip();const ly=lvlY(f);const gr=X.createLinearGradient(0,ly,0,iy1);gr.addColorStop(0,'rgba(120,230,255,.95)');gr.addColorStop(1,'rgba(20,120,220,.95)');X.fillStyle=gr;X.fillRect(g.tx-20,ly,40,iy1-ly+th*.05);X.restore()}
   for(let d=0;d<=100;d+=10){const y=lvlY(d),maj=d%50===0;X.strokeStyle=d===100?'#c0200a':'#1a2a4a';X.lineWidth=maj?4:2;X.beginPath();X.moveTo(g.tx-(maj?20:11),y);X.lineTo(g.tx+(maj?20:11),y);X.stroke();if(maj)txt(d===100?'1,0':dec(d),g.tx-80,y,34,d===100?'#ffe066':'#fff',{f:NUM,st:'#2a1606',lw:7,box:null})}
-  {const bw=240,bh=bw/aspect('board'),bx=(g.cl+g.cr)/2+40,by=g.gy-300;sprW('board',bx,by,bw);textIn('В баке: '+dec(tgt,tgt%100?undefined:1),bx,by+2,bw*.84,bh*.62,40,tgt>100?'#c0200a':'#3a1c08',{f:NUM,st:0,id:'fuel'})}
+  {const bw=300,bh=bw/aspect('board'),bx=(g.cl+g.cr)/2+40,by=g.gy-300;sprW('board',bx,by,bw);textIn('В баке: '+dec(tgt,tgt%100?undefined:1),bx,by+2,bw*.84,bh*.62,40,tgt>100?'#c0200a':'#3a1c08',{f:NUM,st:0,id:'fuel'})}
   // канистры
   const C=Z5C[z.r],n=C.length,sp=(g.cr-g.cl)/n;
   C.forEach((v,i)=>{const used=z.used.includes(i);const x=g.cl+sp*(i+.5),h=Math.min(170,sp*1.5);let y=g.gy-58;

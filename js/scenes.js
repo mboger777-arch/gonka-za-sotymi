@@ -54,5 +54,5 @@ SC.fin={enter(){cast=[hero('tina',0),hero('zap',0),hero('lastik',0,{pose:'sad',h
   run(async()=>{await wait(400);cheer();burst(640,250,120,'conf',null,1.5);await say('f_sorry');cheer();await say('f_end');hop('zap');await say('f_end2');pose('lastik','sad');ZS.lock=false;ZS.done=true})},
  draw(){bgDraw('title');const hw=c=>heroX(c);const L=safeL(),R=safeR();cast[0].x=L+hw(cast[0])/2;cast[1].x=L+hw(cast[0])+hw(cast[1])/2+4;cast[3].x=R-hw(cast[3])/2;cast[2].x=(cast[1].x+hw(cast[1])/2+cast[3].x-hw(cast[3])/2)/2;
   if(Math.random()<.08)burst(rnd(200,1080),rnd(80,250),10,'spark',rnd(30,60),.6);drawCast();
-  const n=SV.secret.filter(v=>v).length;const lw=Math.min(720,vis().w*.5),lh=lw/aspect('logo');X.save();X.translate(640,safeT()+lh/2+(talk?210:0));sprW('logo',0,0,lw);textIn('Город спасён!',0,lh*.02,lw*.56,lh*.3,80,'#fff6dc',{f:FONT,st:'#7a1206',lw:9,id:'fin'});X.restore()},
- ui(){if(ZS&&ZS.done)boardBtn('again',640,safeB()-70,360,'На карту',()=>go('map'),{size:56})}};
+  const n=SV.secret.filter(v=>v).length;const lw=Math.min(720,vis().w*.5),lh=lw/aspect('logo');ZS.la=(ZS.la||0)+((talk?0:1)-(ZS.la||0))*.12;if(ZS.la<.02)return;X.save();X.globalAlpha=ZS.la;X.translate(640,safeT()+lh/2+(1-ZS.la)*-40);sprW('logo',0,0,lw);textIn('Город спасён!',0,lh*.02,lw*.56,lh*.3,80,'#fff6dc',{f:FONT,st:'#7a1206',lw:9,id:'fin'});X.restore()},
+ ui(){if(ZS&&ZS.done)boardBtn('again',safeR()-150,safeT()+62,270,'На карту',()=>go('map'),{size:46})}};

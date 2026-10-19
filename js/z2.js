@@ -44,9 +44,9 @@ SC.z2={enter(){cast=[hero('sotik',0)];zoneStart(2,{part:1,i:0,pan:[],fly:[],ang:
    // коромысло поверх подвесов
    spr('sc_beam',g.cx,g.top+14,40,{rot:z.ang,ay:.5});
    // лоток гирек
-   Z2W.forEach((w,i)=>{const x=g.trayX0+g.trayW*(i+.5)/3,h=w.h,lh0=150/aspect('board'),y=g.gy-lh0-h/2;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=8;spr(w.id,x,y+h/2,h,{ay:1});X.restore();GND.push({n:w.id,x,feet:y+h/2,gl:y+h/2,w:h*aspect(w.id),h,ar:aspect(w.id),src:w.id});
+   Z2W.forEach((w,i)=>{const x=g.trayX0+g.trayW*(i+.5)/3,h=w.h,lh0=Math.min(150,g.trayW/3-6)/aspect('board'),y=g.gy-lh0-h/2;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=8;spr(w.id,x,y+h/2,h,{ay:1});X.restore();GND.push({n:w.id,x,feet:y+h/2,gl:y+h/2,w:h*aspect(w.id),h,ar:aspect(w.id),src:w.id});
     UI.push({id:'w'+w.v,x,y,w:Math.max(110,h*aspect(w.id)),h:Math.max(110,h),fn:()=>SC.z2.add(w)});
-    const lw=150,lh=lw/aspect('board');sprW('board',x,y+h/2+lh/2-2,lw);txt(dec(w.v)+' кг',x,y+h/2+lh/2-2,30,'#3a1c08',{f:NUM,st:0,box:[x-lw*.42,y+h/2-2,x+lw*.42,y+h/2+lh-2],id:'wl'})})}
+    const lw=Math.min(150,g.trayW/3-6),lh=lw/aspect('board');sprW('board',x,y+h/2+lh/2-2,lw);textIn(dec(w.v),x,y+h/2+lh/2-2,lw*.84,lh*.66,44,'#3a1c08',{f:NUM,st:0,id:'wl'})})}
   else{const p=Z2P[z.ti],g=this.tg();X.save();X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=16;X.shadowOffsetY=6;sprW('tag',g.cx,g.y,g.w);X.restore();
    spr(p.it,g.cx-g.w*.36,gY()-4,150,{ay:1});GND.push({n:p.it,x:g.cx-g.w*.36,feet:gY()-4,gl:gY(),w:100,h:150,ar:aspect(p.it),src:p.it});
    for(let j=0;j<g.n;j++){const x=g.x0+j*g.step;txt(p.d[j],x,g.y+6,150,'#2a1606',{f:NUM,st:0,box:[g.cx-g.w/2,g.y-g.h/2,g.cx+g.w/2,g.y+g.h/2],id:'dig'})}
