@@ -76,7 +76,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
   for(const[wz,o]of list){const p=proj(wz,o.x);if(!p)continue;
    if(o.t==='kart'){const w=720*p.sc;sprW('kart_'+o.n,p.x,p.y,w,{ay:.92});continue}
    if(o.flat){const w=(o.ww||.5)*RW*p.sc;const h=w/aspect(o.t)*.55;X.save();X.translate(p.x,p.y);X.scale(1,.55);sprW(o.t,0,0,w,{ay:.6});X.restore();continue}
-   if(o.t==='gate'){const w=o.ww*RW*p.sc*1.04,h=w/aspect('gate');sprW('gate',p.x,p.y,w,{ay:.97});const fs=h*.13;if(fs>5){const g=RACES[z.ri].gates[o.gi];const ok=o.done&&z.gres[o.gi]!=null;txt(dec(o.v),p.x,p.y-h*.97+h*.17,fs,'#2a1606',{f:NUM,st:0,box:null})}continue}
+   if(o.t==='gate'){const w=o.ww*RW*p.sc*1.04,h=w/aspect('gate');sprW('gate',p.x,p.y,w,{ay:.97});const fs=h*.13;if(fs>5){const g=RACES[z.ri].gates[o.gi];const ok=o.done&&z.gres[o.gi]!=null;txt(dec(o.v),p.x,p.y-h*.97+h*.17,fs,'#2a1606',{f:NUM,st:0,box:fs>=44?null:undefined})}continue}
    if(o.t==='arch'){const w=o.ww*RW*p.sc,h=w/aspect('arch');sprW('arch',p.x,p.y,w,{ay:.97});continue}
    if(o.t==='coin'){const h=o.wh*p.sc;X.save();X.translate(p.x,p.y-h*.9);X.scale(Math.cos(T*4+o.pos)*.9+.1,1);spr('coin',0,0,h);X.restore();continue}
    if(o.t==='secret'){const h=o.wh*p.sc;X.save();X.shadowColor='#ffd75a';X.shadowBlur=20;spr('comma',p.x,p.y-h*.8,h,{rot:Math.sin(T*3)*.3});X.restore();continue}
@@ -91,7 +91,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
   const st=z.steer,ay=safeB()-80;for(const s of[-1,1]){const x=s<0?safeL()+90:safeR()-90;const on=(s<0?st<-.3:st>.3);X.save();X.globalAlpha=on?1:.75;btnDraw('b_up',x,ay,on?150:136,s*Math.PI/2);X.restore()}
   // табло: время и монеты
   const bw=300,bh=bw/aspect('board'),bx=safeL()+120+bw/2,by=safeT()+bh/2;sprW('board',bx,by,bw);txt(dec(Math.round(z.t*100),2)+' с',bx,by+2,44,'#3a1c08',{f:NUM,st:0,box:[bx-bw*.42,by-bh*.3,bx+bw*.42,by+bh*.3],id:'timer'});
-  const cx=bx+bw/2+60;spr('coin',cx,by,62);txt('×'+z.coins,cx+60,by,40,'#fff',{f:NUM,st:'#3a1c08',lw:7,box:null});
+  const cx=bx+bw/2+60;spr('coin',cx,by,62);txt('×'+z.coins,cx+64,by,48,'#fff',{f:NUM,st:'#3a1c08',lw:7,box:null});
   // место
   const place=1+z.rivals.filter(r=>r.pos>z.pos+1400).length;txt(place+'-й',safeR()-70,safeT()+40,56,'#ffe066',{f:NUM,st:'#3a1c08',lw:9,box:null});
   if(z.phase==='count'){const k=Math.floor((T-z.cntT)/(G.fast?.15:1));const s=k<3?String(3-k):'Старт!';const d=180,cy=v.y0+v.h*.42-10;spr('dial',640,cy,d);txt(s,640,cy+4,k<3?100:44,'#fff',{f:NUM,st:'#b0300a',lw:10,box:[640-d*.4,cy-d*.4,640+d*.4,cy+d*.4],id:'cnt'})}

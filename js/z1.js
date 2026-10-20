@@ -38,7 +38,7 @@ SC.z1={enter(){cast=[hero('tina',0)];const z=zoneStart(1,{a:0,b:100,za:0,zb:100,
   // подписи над линейкой
   for(let h=Math.ceil(z.a);h<=Math.floor(z.b);h++){const x=z1x(h);const whole=h%100===0,ten=h%10===0;let al=0,fs=0;
    if(whole){al=1;fs=58}else if(ten){al=z.reveal*clamp((px*10-50)/30,0,1);fs=px*10>300?54:40}else{al=clamp((px-58)/20,0,1);fs=36}
-   if(al<=0)continue;const zoomed=px*10>300;let F=fs*1.12;const lab=dec(h);if(zoomed){X.font=F+'px '+NUM;const mw=X.measureText(lab).width,lim=px*1.85;if(mw>lim)F*=lim/mw}
+   if(al<=0)continue;const zoomed=px*10>300;let F=fs*1.12;const lab=dec(h);if(zoomed){X.font=F+'px '+NUM;const mw=X.measureText(lab).width,lim=px*1.98;if(mw>lim)F*=lim/mw}
    const row=zoomed&&h%2?1:0;X.globalAlpha=al;txt(lab,x,g.top+g.rh+36+row*F*.95,F,'#fff',{f:NUM,st:'#3a1c08',lw:F*.12,box:null});
    if(row&&al>.5){X.strokeStyle='rgba(255,255,255,.55)';X.lineWidth=2;X.beginPath();X.moveTo(x,g.top+g.rh+4);X.lineTo(x,g.top+g.rh+36+F*.95-F*.5);X.stroke()}}
   X.globalAlpha=1;X.restore();

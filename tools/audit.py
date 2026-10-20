@@ -25,6 +25,7 @@ async def main():
           for t in A['a']['t']:
             x0,y0,x1,y1=t['b'];N+=1;pad=(y1-y0)*.18;y0+=pad;y1-=pad
             if x0<v['x0']-1 or x1>v['x0']+v['w']+1 or y0<v['y0']-1 or y1>v['y0']+v['h']+1:F.append(f"{W}x{H} {sc}#{i} text '{t['id']}' off-screen")
+            if any(c.isdigit() for c in t.get('t','')) and t.get('css',99)<22:F.append(f"{W}x{H} {sc}#{i} small digits '{t['id']}' «{t['t']}» {t['css']:.1f}px")
             if t['box']:
               bx0,by0,bx1,by1=t['box']
               if x0<bx0-2 or x1>bx1+2 or y0<by0-4 or y1>by1+4:F.append(f"{W}x{H} {sc}#{i} text '{t['id']}' out of frame {[round(q) for q in t['b']]} vs {[round(q) for q in t['box']]}")

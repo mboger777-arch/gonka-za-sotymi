@@ -2,7 +2,7 @@
 // ===== Зона 5: Ракета — заправка долями ровно до 1,0; погоня за Ластиком =====
 const Z5C=[[50,30,20,25],[45,35,20,15]],CANS=['can_red','can_blue','can_green','can_yellow'];
 const Z5Q=[[80,75],[6,60],[110,109]];
-function z5geo(){const gy=gY();const tina=cast[0];const L=safeL()+(tina?heroX(tina):0)+30,R=safeR()-20;const rh=Math.min(560,gy-vis().y0-60);const rw=rh*aspect('rocket');const rx=R-rw/2;const tx=rx-rw/2-70;return{gy,L,R,rh,rw,rx,tx,cl:L,cr:tx-90}}
+function z5geo(){const gy=gY();const tina=cast[0];const L=safeL()+(tina?heroX(tina):0)+30,R=safeR()-20;const rh=Math.min(560,gy-vis().y0-60);const rw=rh*aspect('rocket');const rx=R-rw/2;const tx=rx-rw/2-70;return{gy,L,R,rh,rw,rx,tx,cl:L,cr:tx-150}}
 SC.z5={enter(){cast=[hero('tina',0)];zoneStart(5,{ph:'fuel',r:0,lvl:0,shown:0,used:[],pour:null,q:0,dist:3,fly:0,lt:0});GOAL='Заправь ракету ровно до 1,0!';
   run(async()=>{await wait(300);await say('f1');await say('f2')})},
  sum(){return ZS.used.reduce((s,i)=>s+Z5C[ZS.r][i],0)},
@@ -31,14 +31,14 @@ SC.z5={enter(){cast=[hero('tina',0)];zoneStart(5,{ph:'fuel',r:0,lvl:0,shown:0,us
   // шкала бака 0..1
   const th=g.rh*.72,ty0=g.gy-20-th,ty1=g.gy-20;spr('tube',g.tx,(ty0+ty1)/2,th);const iy0=ty0+th*.08,iy1=ty1-th*.08;const lvlY=d=>iy1-(iy1-iy0)*d/100;
   {const f=clamp(z.lvl,0,115);X.save();X.beginPath();X.roundRect(g.tx-16,iy0-th*.04,32,iy1-iy0+th*.08,16);X.clip();const ly=lvlY(f);const gr=X.createLinearGradient(0,ly,0,iy1);gr.addColorStop(0,'rgba(120,230,255,.95)');gr.addColorStop(1,'rgba(20,120,220,.95)');X.fillStyle=gr;X.fillRect(g.tx-20,ly,40,iy1-ly+th*.05);X.restore()}
-  for(let d=0;d<=100;d+=10){const y=lvlY(d),maj=d%50===0;X.strokeStyle=d===100?'#c0200a':'#1a2a4a';X.lineWidth=maj?4:2;X.beginPath();X.moveTo(g.tx-(maj?20:11),y);X.lineTo(g.tx+(maj?20:11),y);X.stroke();if(maj)txt(d===100?'1,0':dec(d),g.tx-80,y,34,d===100?'#ffe066':'#fff',{f:NUM,st:'#2a1606',lw:7,box:null})}
-  {const bw=300,bh=bw/aspect('board'),bx=(g.cl+g.cr)/2+40,by=g.gy-300;sprW('board',bx,by,bw);textIn('В баке: '+dec(tgt,tgt%100?undefined:1),bx,by+2,bw*.84,bh*.62,40,tgt>100?'#c0200a':'#3a1c08',{f:NUM,st:0,id:'fuel'})}
+  for(let d=0;d<=100;d+=10){const y=lvlY(d),maj=d%50===0;X.strokeStyle=d===100?'#c0200a':'#1a2a4a';X.lineWidth=maj?4:2;X.beginPath();X.moveTo(g.tx-(maj?20:11),y);X.lineTo(g.tx+(maj?20:11),y);X.stroke();if(maj)txt(d===100?'1,0':dec(d),g.tx-84,y,46,d===100?'#ffe066':'#fff',{f:NUM,st:'#2a1606',lw:7,box:null})}
+  {const bw=400,bh=bw/aspect('board'),bx=(g.cl+g.cr)/2+40,by=g.gy-300;sprW('board',bx,by,bw);textIn('В баке: '+dec(tgt,tgt%100?undefined:1),bx,by+2,bw*.86,bh*.66,54,tgt>100?'#c0200a':'#3a1c08',{f:NUM,st:0,id:'fuel'})}
   // канистры
   const C=Z5C[z.r],n=C.length,sp=(g.cr-g.cl)/n;
   C.forEach((v,i)=>{const used=z.used.includes(i);const x=g.cl+sp*(i+.5),h=Math.min(170,sp*1.5);let y=g.gy-58;
    if(z.pour&&z.pour.i===i){const u=clamp((T-z.pour.t0)/(G.fast?.02:.6),0,1);if(u<1){const px=lerp(x,g.tx,u),py=lerp(y,ty0-30,u)-Math.sin(u*Math.PI)*120;spr(CANS[i],px,py,h*.8,{ay:1,rot:u*1.9});return}}
    if(used)return;spr(CANS[i],x,y,h,{ay:1});GND.push({n:CANS[i],x,feet:y,gl:y,w:h*aspect(CANS[i]),h,ar:aspect(CANS[i]),src:CANS[i]});
-   const lw=Math.min(150,sp*.95),lh=lw/aspect('board');sprW('board',x,y+lh/2+2,lw);txt(dec(v),x,y+lh/2+3,36,'#3a1c08',{f:NUM,st:0,box:[x-lw*.42,y+2,x+lw*.42,y+lh+2],id:'can'});
+   const lw=Math.min(140,sp*.95),lh=lw/aspect('tag');sprW('tag',x,y+lh/2+2,lw);textIn(dec(v),x+lw*.07,y+lh/2+4,lw*.74,lh*.56,56,'#2a1606',{f:NUM,st:0,id:'can',min:44});
    UI.push({id:'can'+i,x,y:y-h/2,w:Math.max(110,h*aspect(CANS[i])),h,fn:()=>SC.z5.pourCan(i)})});
   drawCast()},
  ui(){const z=ZS,v=vis();if(z.ph==='fuel'&&z.used.length&&!z.lock){const g=z5geo();btn('undo','b_undo',g.cl+60,g.gy-310,100,()=>SC.z5.undo(),{pulse:this.sum()>100})}

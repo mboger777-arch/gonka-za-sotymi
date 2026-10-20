@@ -97,10 +97,10 @@ function wrap(t,maxW){const ws=String(t).split(' '),out=[];let cur='';for(const 
 function fitText(t,w,h,maxS,font,minS){font=font||BODY;minS=minS||16;for(let s=maxS;s>=minS;s-=2){X.font=s+'px '+font;const L=wrap(t,w);const lh=s*1.16;if(L.length*lh<=h&&L.every(l=>X.measureText(l).width<=w))return{s,L,lh}}X.font=minS+'px '+font;return{s:minS,L:wrap(t,w),lh:minS*1.16}}
 let AUD=null;// аудит текста: каждая надпись регистрирует свой прямоугольник и рамку-контейнер
 let BASE=null;function mapBox(b){if(!b||!BASE)return b;const m=BASE.inverse().multiply(X.getTransform());if(m.isIdentity)return b;const P=[[b[0],b[1]],[b[2],b[1]],[b[0],b[3]],[b[2],b[3]]].map(([x,y])=>m.transformPoint(new DOMPoint(x,y)));const xs=P.map(p=>p.x),ys=P.map(p=>p.y);return[Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)]}
-function regText(b,box,id){if(AUD)AUD.t.push({id:id||'',b:mapBox(b),box:mapBox(box)})}
+function regText(b,box,id,t,size){if(AUD){const m=BASE?BASE.inverse().multiply(X.getTransform()):null;const k=m?Math.hypot(m.a,m.b):1;AUD.t.push({id:id||'',b:mapBox(b),box:mapBox(box),t:String(t||''),css:(size||0)*k*S})}}
 function txt(t,x,y,size,col,o){o=o||{};X.font=size+'px '+(o.f||FONT);X.textAlign=o.al||'center';X.textBaseline='middle';
  if(o.st!==0){X.lineJoin='round';X.lineWidth=o.lw||Math.max(3,size*.16);X.strokeStyle=o.st||'rgba(40,16,4,.9)';X.strokeText(t,x,y)}X.fillStyle=col||'#fff';X.fillText(t,x,y);
- if(AUD&&o.box!==undefined){const w=X.measureText(t).width;const x0=o.al==='left'?x:o.al==='right'?x-w:x-w/2;regText([x0,y-size*.55,x0+w,y+size*.55],o.box,o.id)}}
+ if(AUD&&o.box!==undefined){const w=X.measureText(t).width;const x0=o.al==='left'?x:o.al==='right'?x-w:x-w/2;regText([x0,y-size*.55,x0+w,y+size*.55],o.box,o.id,t,size)}}
 // текст в рамке: автоподбор размера
 function textIn(t,x,y,w,h,maxS,col,o){o=o||{};const f=fitText(t,w,h,maxS,o.f||BODY,o.min);const y0=y-(f.L.length-1)*f.lh/2;
  f.L.forEach((l,i)=>txt(l,x,y0+i*f.lh,f.s,col,{f:o.f||BODY,st:o.st,lw:o.lw,box:[x-w/2,y-h/2,x+w/2,y+h/2],id:o.id}));return f}
@@ -149,7 +149,7 @@ function drawTalk(){const v=vis();const top=safeT();
   const flip=tx!=null&&tx>bx;X.save();X.translate(bx,top+bh/2);X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=14;X.shadowOffsetY=5;X.scale(flip?-1:1,1);const bi=IM.bubble;if(okI(bi))X.drawImage(bi,-bw/2,-bh/2,bw,bh);X.restore();
   // внутренняя область облачка (без хвостика)
   const iw=bw*.84,ih=bh*.6,cy=top+bh*.4;const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw*.36,top+bh*.05,30,'#fff',{f:FONT,al:'left',st:'#2a7a7a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
-  textIn(talk.text,bx,cy+6,iw,ih,40,'#2b2440',{f:BODY,st:0,id:'talk'});talk.box=[bx-bw/2,top,bw,bh*.8];return}
+  textIn(talk.text,bx,cy+6,iw,ih,46,'#2b2440',{f:BODY,st:0,id:'talk'});talk.box=[bx-bw/2,top,bw,bh*.8];return}
  if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=12;X.shadowOffsetY=5;sprW('board',bx,top+bh/2,bw);X.restore();
   textIn(GOAL,bx,top+bh/2,bw*.84,bh*.56,46,'#4a2208',{f:BODY,st:'rgba(255,248,230,.8)',lw:4,id:'goal'})}}
 // ---- сцены ----
