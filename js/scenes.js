@@ -37,7 +37,7 @@ SC.intro={enter(){cast=[hero('tina',0),hero('zap',0),hero('lastik',0,{pose:'laug
  ui(){boardBtn('skip',safeR()-150,safeB()-50,260,'Дальше',()=>{SV.intro=1;save();go('map')},{size:44})}};
 // ---- карта: вся карта видна целиком; поля — размытый фон ----
 function mapRect(){const v=vis(),k=Math.min(v.w/1280,v.h/720);const w=1280*k,h=720*k;return{x:640-w/2,y:v.y0+v.h-h,k,w,h}}
-SC.map={bubble(bw){const w=600;return{x:safeL()+heroX(cast[0])+w/2-10,top:safeB()-215,w}},enter(){cast=[hero('tina',0,{h:380}),hero('zap',0,{h:220})];GOAL='';
+SC.map={bubble(bw){const w=Math.max(600,bw);return{x:safeL()+heroX(cast[0])+w/2-10,top:safeB()-215,w}},enter(){cast=[hero('tina',0,{h:380}),hero('zap',0,{h:220})];GOAL='';
   run(async()=>{await wait(300);if(SV.stars.every(v=>!v))await say('m1');else if(SV.open>=5&&!SV.stars[4])await say('m_fin')})},
  draw(){const v=vis(),m=mapRect();const b=IM.bg_map;
   if(okI(b)){X.save();X.filter='blur(14px) brightness(.8)';const s=Math.max(v.w/1280,v.h/720)*1.1;X.drawImage(b,640-640*s,v.y0+v.h/2-360*s,1280*s,720*s);X.restore();X.drawImage(b,m.x,m.y,m.w,m.h)}

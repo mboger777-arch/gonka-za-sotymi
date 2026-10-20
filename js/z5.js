@@ -38,7 +38,7 @@ SC.z5={enter(){cast=[hero('tina',0)];zoneStart(5,{ph:'fuel',r:0,lvl:0,shown:0,us
   C.forEach((v,i)=>{const used=z.used.includes(i);const x=g.cl+sp*(i+.5),h=Math.min(170,sp*1.5);let y=g.gy-58;
    if(z.pour&&z.pour.i===i){const u=clamp((T-z.pour.t0)/(G.fast?.02:.6),0,1);if(u<1){const px=lerp(x,g.tx,u),py=lerp(y,ty0-30,u)-Math.sin(u*Math.PI)*120;spr(CANS[i],px,py,h*.8,{ay:1,rot:u*1.9});return}}
    if(used)return;spr(CANS[i],x,y,h,{ay:1});GND.push({n:CANS[i],x,feet:y,gl:y,w:h*aspect(CANS[i]),h,ar:aspect(CANS[i]),src:CANS[i]});
-   const lw=Math.min(140,sp*.95),lh=lw/aspect('tag');sprW('tag',x,y+lh/2+2,lw);textIn(dec(v),x+lw*.07,y+lh/2+4,lw*.74,lh*.56,56,'#2a1606',{f:NUM,st:0,id:'can',min:44});
+   const lw=Math.min(140,sp*.95),lh=lw/aspect('tag');sprW('tag',x,y+lh/2+2,lw);textIn(dec(v),x+lw*.06,y+lh/2+4,lw*.82,lh*.6,56,'#2a1606',{f:NUM,st:0,id:'can',min:44});
    UI.push({id:'can'+i,x,y:y-h/2,w:Math.max(110,h*aspect(CANS[i])),h,fn:()=>SC.z5.pourCan(i)})});
   drawCast()},
  ui(){const z=ZS,v=vis();if(z.ph==='fuel'&&z.used.length&&!z.lock){const g=z5geo();btn('undo','b_undo',g.cl+60,g.gy-310,100,()=>SC.z5.undo(),{pulse:this.sum()>100})}

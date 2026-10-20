@@ -145,11 +145,11 @@ const LEFT=k=>safeL()+(k||0),RIGHT=k=>safeR()-(k||0);
 let GOAL='';
 function talkerX(){if(!talk)return 640;const c=cast.find(c=>c.n===talk.who);return c?c.dx:null}
 function drawTalk(){const v=vis();const top=safeT();
- if(talk&&talk.text){const tx=talkerX();let bw=Math.min(700,v.w*.5),bh=200,top=safeT();let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+bw/2,safeR()-bw/2);if(SCN&&SCN.bubbleX)bx=SCN.bubbleX(bw,tx);if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top;bw=o.w||bw}
+ if(talk&&talk.text){const tx=talkerX();let bw=Math.min(700,v.w*.5),bh=200,top=safeT();{const mx=Math.min(900,v.w*.66);for(let k=0;k<8&&bw<mx;k++){const f=fitText(talk.text,bw*.84,bh*.6,46,BODY,44);if(f.L.length*f.lh<=bh*.6&&f.L.every(l=>X.measureText(l).width<=bw*.84))break;bw=Math.min(mx,bw+50)}}let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+bw/2,safeR()-bw/2);if(SCN&&SCN.bubbleX)bx=SCN.bubbleX(bw,tx);if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top;bw=Math.max(o.w||0,bw)}
   const flip=tx!=null&&tx>bx;X.save();X.translate(bx,top+bh/2);X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=14;X.shadowOffsetY=5;X.scale(flip?-1:1,1);const bi=IM.bubble;if(okI(bi))X.drawImage(bi,-bw/2,-bh/2,bw,bh);X.restore();
   // внутренняя область облачка (без хвостика)
   const iw=bw*.84,ih=bh*.6,cy=top+bh*.4;const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw*.36,top+bh*.05,30,'#fff',{f:FONT,al:'left',st:'#2a7a7a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
-  textIn(talk.text,bx,cy+6,iw,ih,46,'#2b2440',{f:BODY,st:0,id:'talk'});talk.box=[bx-bw/2,top,bw,bh*.8];return}
+  textIn(talk.text,bx,cy+6,iw,ih,46,'#2b2440',{f:BODY,st:0,id:'talk',min:44});talk.box=[bx-bw/2,top,bw,bh*.8];return}
  if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=12;X.shadowOffsetY=5;sprW('board',bx,top+bh/2,bw);X.restore();
   textIn(GOAL,bx,top+bh/2,bw*.84,bh*.56,46,'#4a2208',{f:BODY,st:'rgba(255,248,230,.8)',lw:4,id:'goal'})}}
 // ---- сцены ----
