@@ -79,7 +79,7 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
    if(o.t==='gate'){const w=o.ww*RW*p.sc*1.04,h=w/aspect('gate');sprW('gate',p.x,p.y,w,{ay:.97});const fs=h*.13;if(fs>5){const g=RACES[z.ri].gates[o.gi];const ok=o.done&&z.gres[o.gi]!=null;txt(dec(o.v),p.x,p.y-h*.97+h*.17,fs,'#2a1606',{f:NUM,st:0,box:fs>=44?null:undefined})}continue}
    if(o.t==='arch'){const w=o.ww*RW*p.sc,h=w/aspect('arch');sprW('arch',p.x,p.y,w,{ay:.97});continue}
    if(o.t==='coin'){const h=o.wh*p.sc;X.save();X.translate(p.x,p.y-h*.9);X.scale(Math.cos(T*4+o.pos)*.9+.1,1);spr('coin',0,0,h);X.restore();continue}
-   if(o.t==='secret'){const h=o.wh*p.sc;X.save();X.shadowColor='#ffd75a';X.shadowBlur=20;spr('comma',p.x,p.y-h*.8,h,{rot:Math.sin(T*3)*.3});X.restore();continue}
+   if(o.t==='secret'){const h=o.wh*p.sc;X.save();spr('comma',p.x,p.y-h*.8,h,{rot:Math.sin(T*3)*.3});X.restore();continue}
    const h=(o.wh||1400)*p.sc;spr(o.t,p.x,p.y,h,{ay:.97})}
   // свой картинг
   const kw=Math.min(300,v.w*.22),bump=Math.sin(T*24)*1.5*(z.sp/2000);const kx=640+z.steer*16,ky=yB-14+bump;
@@ -98,5 +98,5 @@ SC.z3={enter(a){zoneStart(3);raceInit(a||0)},
   // следующие ворота: что сравнить
   const g=z.objs.find(o=>o.t==='gate'&&!o.done&&o.x<0&&o.pos>z.pos);if(g&&g.pos-z.pos<16000&&z.phase==='race'&&!talk){GOAL='Въезжай в ворота с большим числом!'}else if(!talk)GOAL=''},
  bubbleX(bw){return 640}};
-function btnDraw(im,x,y,d,rot){X.save();X.translate(x,y);X.rotate(rot||0);X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=10;sprW(im,0,0,d);X.restore()}
+function btnDraw(im,x,y,d,rot){X.save();X.translate(x,y);X.rotate(rot||0);sprW(im,0,0,d);X.restore()}
 G.race=()=>{const z=ZS;return z&&{phase:z.phase,pos:z.pos,ri:z.ri,gres:z.gres,ranked:z.ranked,order:z.order}};

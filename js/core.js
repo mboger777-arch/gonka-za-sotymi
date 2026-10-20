@@ -111,10 +111,10 @@ function aspect(n){const i=IM[n];return okI(i)?i.naturalWidth/i.naturalHeight:1}
 // ---- кнопки: хит-зона >= 56 css px ----
 let UI=[];
 function btn(id,im,x,y,d,fn,o){o=o||{};UI.push({id,x,y,w:d,h:d,fn,dis:o.dis,always:o.always});const hov=Math.hypot(PX-x,PY-y)<d/2;const k=(hov?1.06:1)*(1+(o.pulse?Math.sin(T*5)*.05:0));
- X.save();X.translate(x,y);X.scale(k,k);if(o.dis)X.globalAlpha=.45;X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=10;X.shadowOffsetY=4;if(o.rot)X.rotate(o.rot);sprW(im,0,0,d);X.restore()}
+ X.save();X.translate(x,y);X.scale(k,k);if(o.dis)X.globalAlpha=.45;if(o.rot)X.rotate(o.rot);sprW(im,0,0,d);X.restore()}
 // кнопка-доска с надписью
 function boardBtn(id,x,y,w,label,fn,o){o=o||{};const h=w/aspect('board');UI.push({id,x,y,w,h,fn,dis:o.dis});const hov=Math.abs(PX-x)<w/2&&Math.abs(PY-y)<h/2;const k=(hov?1.04:1)*(1+(o.pulse?Math.sin(T*4)*.03:0));
- X.save();X.translate(x,y);X.scale(k,k);X.shadowColor='rgba(0,0,0,.45)';X.shadowBlur=12;X.shadowOffsetY=5;sprW('board',0,0,w);X.shadowColor='transparent';X.restore();
+ X.save();X.translate(x,y);X.scale(k,k);sprW('board',0,0,w);X.shadowColor='transparent';X.restore();
  X.save();X.translate(x,y);X.scale(k,k);textIn(label,0,0,w*.78,h*.56,o.size||60,'#5a2a0a',{f:FONT,st:'rgba(255,245,220,.9)',lw:6,id});X.restore()}
 // ---- герои: позы, дыхание (только равномерный масштаб), прыжки на землю, взгляд на ребёнка ----
 let cast=[];
@@ -146,11 +146,11 @@ let GOAL='';
 function talkerX(){if(!talk)return 640;const c=cast.find(c=>c.n===talk.who);return c?c.dx:null}
 function drawTalk(){const v=vis();const top=safeT();
  if(talk&&talk.text){const tx=talkerX();let bw=Math.min(700,v.w*.5),bh=200,top=safeT();{const mx=Math.min(900,v.w*.66);for(let k=0;k<8&&bw<mx;k++){const f=fitText(talk.text,bw*.84,bh*.6,46,BODY,44);if(f.L.length*f.lh<=bh*.6&&f.L.every(l=>X.measureText(l).width<=bw*.84))break;bw=Math.min(mx,bw+50)}}let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+bw/2,safeR()-bw/2);if(SCN&&SCN.bubbleX)bx=SCN.bubbleX(bw,tx);if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top;bw=Math.max(o.w||0,bw)}
-  const flip=tx!=null&&tx>bx;X.save();X.translate(bx,top+bh/2);X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=14;X.shadowOffsetY=5;X.scale(flip?-1:1,1);const bi=IM.bubble;if(okI(bi))X.drawImage(bi,-bw/2,-bh/2,bw,bh);X.restore();
+  const flip=tx!=null&&tx>bx;X.save();X.translate(bx,top+bh/2);X.scale(flip?-1:1,1);const bi=IM.bubble;if(okI(bi))X.drawImage(bi,-bw/2,-bh/2,bw,bh);X.restore();
   // внутренняя область облачка (без хвостика)
   const iw=bw*.84,ih=bh*.6,cy=top+bh*.4;const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw*.36,top+bh*.05,30,'#fff',{f:FONT,al:'left',st:'#2a7a7a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
   textIn(talk.text,bx,cy+6,iw,ih,46,'#2b2440',{f:BODY,st:0,id:'talk',min:44});talk.box=[bx-bw/2,top,bw,bh*.8];return}
- if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=12;X.shadowOffsetY=5;sprW('board',bx,top+bh/2,bw);X.restore();
+ if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;X.save();sprW('board',bx,top+bh/2,bw);X.restore();
   textIn(GOAL,bx,top+bh/2,bw*.84,bh*.56,46,'#4a2208',{f:BODY,st:'rgba(255,248,230,.8)',lw:4,id:'goal'})}}
 // ---- сцены ----
 const SC={};let scene='load',SCN=null,ZS=null;
@@ -186,7 +186,7 @@ function loop(now){DT=PORTRAIT()?0:clamp((now-last)/1000,0,.05);last=now;T+=DT;f
 function homeBtn(){if(scene==='map'){btn('home','b_home',safeL()+44,safeT()+42,88,()=>go('title'),{always:1});return}btn('home','b_home',safeL()+44,safeT()+42,88,()=>go('map'),{always:1})}
 // поверни телефон: нарисованная рука с телефоном на размытой игровой сцене
 let rotT=0;function drawRotate(){rotT+=1/60;X.setTransform(DPR,0,0,DPR,0,0);const tb=IM.bg_title;if(okI(tb)){const k=Math.max(W/tb.naturalWidth,H/tb.naturalHeight)*1.06;X.save();X.filter='blur(4px) brightness(.85)';X.drawImage(tb,W/2-tb.naturalWidth*k/2+Math.sin(rotT*.3)*W*.02,H/2-tb.naturalHeight*k/2,tb.naturalWidth*k,tb.naturalHeight*k);X.restore()}
- const r=IM.rotate,d=Math.min(W*.8,H*.5);if(okI(r)){X.save();X.translate(W/2,H*.42);X.rotate(Math.sin(rotT*2)*.08);X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=20;const w=d,h=d/aspect('rotate');X.drawImage(r,-w/2,-h/2,w,h);X.restore()}
+ const r=IM.rotate,d=Math.min(W*.8,H*.5);if(okI(r)){X.save();X.translate(W/2,H*.42);X.rotate(Math.sin(rotT*2)*.08);const w=d,h=d/aspect('rotate');X.drawImage(r,-w/2,-h/2,w,h);X.restore()}
  const bw=Math.min(W*.9,520),bh=bw/aspect('board');X.save();X.translate(W/2,H*.42+d/aspect('rotate')/2+bh*.7);sprW('board',0,0,bw);const fs=bw*.09;X.font=fs+'px '+FONT;X.textAlign='center';X.textBaseline='middle';X.lineWidth=5;X.strokeStyle='rgba(255,245,220,.9)';X.strokeText('Поверни телефон',0,0);X.fillStyle='#5a2a0a';X.fillText('Поверни телефон',0,0);X.restore()}
 // тестовый интерфейс
 Object.defineProperty(G,'scene',{get:()=>scene});G.go=(n,a)=>go(n,a);G.S=()=>SV;G.pg=(x,y)=>({x:OX+x*S+VVX,y:OY+y*S+VVY});G.btns=()=>UI.map(b=>({id:b.id,x:b.x,y:b.y,w:b.w,h:b.h,dis:!!b.dis}));G.fps=()=>fpsA;G.gnd=()=>({S,v:vis(),scene,items:GND,ground:gY()});

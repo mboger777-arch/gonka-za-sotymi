@@ -44,13 +44,13 @@ SC.z2={enter(){cast=[hero('sotik',0)];zoneStart(2,{part:1,i:0,pan:[],fly:[],ang:
    // коромысло поверх подвесов
    spr('sc_beam',g.cx,g.top+14,40,{rot:z.ang,ay:.5});
    // лоток гирек
-   Z2W.forEach((w,i)=>{const x=g.trayX0+g.trayW*(i+.5)/3,h=w.h,y=g.gy-h/2;X.save();X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=8;spr(w.id,x,g.gy,h,{ay:1});X.restore();GND.push({n:w.id,x,feet:g.gy,gl:g.gy,w:h*aspect(w.id),h,ar:aspect(w.id),src:w.id});
+   Z2W.forEach((w,i)=>{const x=g.trayX0+g.trayW*(i+.5)/3,h=w.h,y=g.gy-h/2;X.save();spr(w.id,x,g.gy,h,{ay:1});X.restore();GND.push({n:w.id,x,feet:g.gy,gl:g.gy,w:h*aspect(w.id),h,ar:aspect(w.id),src:w.id});
     // большой нарисованный ценник-бирка над гирькой
     const tw=Math.min(155,g.trayW/3-8),th=tw/aspect('tag'),ty=g.gy-h-th/2+6,rot=Math.sin(T*1.6+i)*.03;
-    X.save();X.translate(x,ty);X.rotate(rot);X.shadowColor='rgba(0,0,0,.35)';X.shadowBlur=10;X.shadowOffsetY=4;sprW('tag',0,0,tw);X.shadowColor='transparent';
+    X.save();X.translate(x,ty);X.rotate(rot);sprW('tag',0,0,tw);X.shadowColor='transparent';
     textIn(dec(w.v),tw*.07,th*.04,tw*.74,th*.56,64,'#2a1606',{f:NUM,st:0,id:'wl',min:44});X.restore();
     UI.push({id:'w'+w.v,x,y:(y+ty)/2,w:Math.max(110,tw),h:Math.max(110,h+th),fn:()=>SC.z2.add(w)});})}
-  else{const p=Z2P[z.ti],g=this.tg();X.save();X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=16;X.shadowOffsetY=6;sprW('tag',g.cx,g.y,g.w);X.restore();
+  else{const p=Z2P[z.ti],g=this.tg();X.save();sprW('tag',g.cx,g.y,g.w);X.restore();
    spr(p.it,g.cx-g.w*.36,gY()-4,150,{ay:1});GND.push({n:p.it,x:g.cx-g.w*.36,feet:gY()-4,gl:gY(),w:100,h:150,ar:aspect(p.it),src:p.it});
    for(let j=0;j<g.n;j++){const x=g.x0+j*g.step;txt(p.d[j],x,g.y+6,150,'#2a1606',{f:NUM,st:0,box:[g.cx-g.w/2,g.y-g.h/2,g.cx+g.w/2,g.y+g.h/2],id:'dig'})}
    for(let j=0;j<g.n-1;j++){const x=this.gapX(j);if(z.place!==j){X.fillStyle='rgba(210,150,40,'+(.45+Math.sin(T*4+j)*.2)+')';X.beginPath();X.arc(x,g.y+62,9,0,7);X.fill()}

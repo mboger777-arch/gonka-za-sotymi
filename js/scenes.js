@@ -5,7 +5,7 @@ const ZONES=[{n:1,sc:'z1',name:'Мастерская',pos:[178,150]},{n:2,sc:'z2
 const SECRETS={z1:[1185,205],z2:[905,120],z3:[0,0],z4:[1180,300],z5:[160,420]};
 function secretIdx(sc){return{z1:0,z2:1,z3:2,z4:3,z5:4}[sc]}
 function drawSecret(sc,xy){const i=secretIdx(sc);if(i==null||SV.secret[i])return;const[x,y]=xy||bgXY(...SECRETS[sc]);const k=1+Math.sin(T*3)*.08;
- X.save();X.globalAlpha=.75+Math.sin(T*2.3)*.2;X.shadowColor='rgba(255,220,90,.9)';X.shadowBlur=18;spr('comma',x,y,58*k,{rot:Math.sin(T*1.7)*.2});X.restore();
+ X.save();X.globalAlpha=.75+Math.sin(T*2.3)*.2;spr('comma',x,y,58*k,{rot:Math.sin(T*1.7)*.2});X.restore();
  UI.push({id:'secret',x,y,w:70,h:70,fn:()=>gotSecret(sc,x,y),always:1})}
 function gotSecret(sc,x,y){const i=secretIdx(sc);if(SV.secret[i])return;SV.secret[i]=1;save();SFX.star();burst(x,y,40,'spark',48,1.2);
  const all=SV.secret.every(v=>v);sayNow(all?'sec_all':'sec');hop('zap')}
@@ -24,7 +24,7 @@ SC.title={enter(){cast=[hero('tina',0),hero('zap',0),hero('sotik',0)];},
   const hw=c=>heroX(c);cast[0].x=safeL()+hw(cast[0])/2;cast[1].x=safeL()+hw(cast[0])+hw(cast[1])/2+6;cast[2].x=safeR()-hw(cast[2])/2;
   drawCast();
   // логотип
-  const lw=Math.min(820,v.w*.62),lh=lw/aspect('logo'),ly=safeT()+lh/2+4;X.save();X.translate(640,ly);X.rotate(Math.sin(T*1.1)*.01);X.shadowColor='rgba(0,0,0,.4)';X.shadowBlur=16;sprW('logo',0,0,lw);X.shadowColor='transparent';
+  const lw=Math.min(820,v.w*.62),lh=lw/aspect('logo'),ly=safeT()+lh/2+4;X.save();X.translate(640,ly);X.rotate(Math.sin(T*1.1)*.01);sprW('logo',0,0,lw);X.shadowColor='transparent';
   textIn('Гонка за сотыми',0,lh*.02,lw*.56,lh*.3,92,'#fff6dc',{f:FONT,st:'#7a1206',lw:10,id:'logo'});X.restore()},
  ui(){const v=vis();boardBtn('play',640,560,420,'Играть',()=>{if(!SV.intro)go('intro');else go('map')},{pulse:1,size:72});
   btn('sound','b_sound',safeR()-44,safeT()+42,84,()=>{G.mute=!G.mute;if(G.mute)stopTalk()},{always:1});if(G.mute){X.save();X.strokeStyle='#d0202a';X.lineWidth=9;X.lineCap='round';const x=safeR()-44,y=safeT()+42;X.beginPath();X.moveTo(x-30,y-30);X.lineTo(x+30,y+30);X.stroke();X.restore()}}};

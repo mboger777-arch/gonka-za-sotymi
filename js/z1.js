@@ -27,7 +27,7 @@ SC.z1={enter(){cast=[hero('tina',0)];const z=zoneStart(1,{a:0,b:100,za:0,zb:100,
  draw(){const z=ZS;bgDraw('workshop');drawSecret('z1');const g=z1geo();cast[0].x=safeL()+heroX(cast[0])/2;
   // плавное увеличение диапазона
   if(z.zt<1){z.zt=Math.min(1,z.zt+DT/(G.fast?.05:.85));const e=ease(z.zt);z.a=lerp(z.za,z.ta,e);z.b=lerp(z.zb,z.tb,e)}
-  X.save();X.shadowColor='rgba(0,0,0,.45)';X.shadowBlur=18;X.shadowOffsetY=8;sprW('ruler',g.cx,g.y,g.w);X.restore();
+  X.save();sprW('ruler',g.cx,g.y,g.w);X.restore();
   // деления (рисуются кодом поверх нарисованной линейки)
   X.save();X.beginPath();X.rect(g.a0-12,g.top-260,g.a1-g.a0+24,g.rh+262);X.rect(g.a0-70,g.top+g.rh,g.a1-g.a0+140,170);X.clip();
   const px=(g.a1-g.a0)/(z.b-z.a);// пикселей на сотую
