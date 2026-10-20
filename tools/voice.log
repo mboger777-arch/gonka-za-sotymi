@@ -101,3 +101,6 @@ Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
 23 w_wrongseg 0.0  Тут другие числа.  Нажми назад и выбери другую десятую.
 manifest 24
 Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.

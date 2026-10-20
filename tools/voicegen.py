@@ -33,6 +33,12 @@ def wer(a,b):
         P=D[:];D[0]=i
         for j,y in enumerate(b,1): D[j]=min(P[j]+1,D[j-1]+1,P[j-1]+(x!=y))
     return D[-1]/max(1,len(a))
+NUMW=set('ноль нуля нулю один одна одной одну два две двух трём три трех четыре четырёх пять пяти шесть шести семь семи восемь восьми девять девяти десять десяти одиннадцать двенадцать двенадцати тринадцать четырнадцать пятнадцать пятнадцати двадцать двадцати тридцать тридцати сорок сорока пятьдесят пятидесяти шестьдесят семьдесят восемьдесят восьмидесяти девяносто сто ста двести целых целая целой десятых десятая десятой десятую сотых сотая сотой сотую'.replace('ё','е').split())
+def nums(s): return [x.replace('.',',') for x in re.findall(r'\d+(?:[.,]\d+)?',s)]
+def numwer(orig,t,hyp):
+    # Whisper пишет числа цифрами: сравниваем слова без числительных + сами числа с исходным текстом (цифры)
+    a=[w for w in norm(t) if w not in NUMW];b=[w for w in norm(hyp) if w not in NUMW and not w.isdigit()]
+    return wer(a,b)+(0 if nums(orig)==nums(hyp) else 0.5)
 if jobs:
     from qwen_tts import Qwen3TTSModel
     from faster_whisper import WhisperModel
@@ -51,7 +57,7 @@ if jobs:
             raw=f'/tmp/kv_{take}.wav';sf.write(raw,wv[0],sr);fin=f'/tmp/kv_{take}.mp3'
             subprocess.run(['ffmpeg','-y','-loglevel','error','-i',raw,'-af',CHAIN,'-ac','1','-ar','24000','-b:a','64k',fin],check=True)
             hyp=' '.join(s.text for s in A.transcribe(L(fin),language='ru',beam_size=3)[0])
-            e=wer(norm(t),norm(hyp))
+            e=min(wer(norm(t),norm(hyp)),numwer(o['t'],t,hyp))
             if best is None or e<best[0]: best=(e,fin,hyp)
             if e<=0.08: break
         os.replace(best[1],f"{OUT}/{o['file']}")
