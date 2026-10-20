@@ -6,9 +6,8 @@
 - [x] нарезка birefnet / color-key (tools/cut.py, кнопки — color-key, рамки — fill holes)
 - [x] движок (js/core.js), титул, вступление, карта, финал (js/scenes.js)
 - [x] зоны 1-5 написаны (js/z1..z5.js), секреты
-- [ ] голос: tools/voicegen.py запущен (Qwen 1.7B CPU, ~2 мин/реплика); перезапуск продолжает с места
 - [x] test_touch: все 5 зон × 844x390, 667x375, 932x430 — ошибка→исправление в каждой зоне, 0 fails
 - [x] tools/audit.py: текст в рамках и на экране, герои на земле/без растяжения, поворот — 0 fails (726 надписей)
 - [x] иконки assets/ui/icon180/192/512.png
-- [ ] голос готов + ASR-ревью, перегенерация k_honey
+- [x] голос: 81 реплика (Qwen3-TTS), ASR small при генерации + независимая проверка whisper medium (tools/voice_verify_medium.jsonl); w_t03, w_t07, k_banana перегенерированы
 - [ ] публикация Pages, live-check
