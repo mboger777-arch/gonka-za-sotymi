@@ -145,7 +145,7 @@ const LEFT=k=>safeL()+(k||0),RIGHT=k=>safeR()-(k||0);
 let GOAL='';
 function talkerX(){if(!talk)return 640;const c=cast.find(c=>c.n===talk.who);return c?c.dx:null}
 function drawTalk(){const v=vis();const top=safeT();
- if(talk&&talk.text){const tx=talkerX();let bw=Math.min(700,v.w*.5),bh=200,top=safeT();{const mx=Math.min(900,v.w*.66);for(let k=0;k<8&&bw<mx;k++){const f=fitText(talk.text,bw*.84,bh*.6,46,BODY,44);if(f.L.length*f.lh<=bh*.6&&f.L.every(l=>X.measureText(l).width<=bw*.84))break;bw=Math.min(mx,bw+50)}}let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+bw/2,safeR()-bw/2);if(SCN&&SCN.bubbleX)bx=SCN.bubbleX(bw,tx);if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top;bw=Math.max(o.w||0,bw)}
+ if(talk&&talk.text){const tx=talkerX();let bw=Math.min(700,v.w*.5),bh=200,top=safeT();{const mx=Math.min(900,v.w*.66,safeR()-safeL()-130);for(let k=0;k<12;k++){const f=fitText(talk.text,bw*.84,bh*.6,46,BODY,44);if(f.L.length*f.lh<=bh*.6&&f.L.every(l=>X.measureText(l).width<=bw*.84))break;if(bw<mx)bw=Math.min(mx,bw+50);else if(bh<270)bh+=25;else break}}let bx=tx==null?640:clamp(tx+(tx<640?bw*.42:-bw*.42),safeL()+110+bw/2,safeR()-bw/2);if(SCN&&SCN.bubbleX)bx=SCN.bubbleX(bw,tx);if(SCN&&SCN.bubble){const o=SCN.bubble(bw,tx);bx=o.x;top=o.top;bw=Math.max(o.w||0,bw)}
   const flip=tx!=null&&tx>bx;X.save();X.translate(bx,top+bh/2);X.scale(flip?-1:1,1);const bi=IM.bubble;if(okI(bi))X.drawImage(bi,-bw/2,-bh/2,bw,bh);X.restore();
   // внутренняя область облачка (без хвостика)
   const iw=bw*.84,ih=bh*.6,cy=top+bh*.4;const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw*.36,top+bh*.05,30,'#fff',{f:FONT,al:'left',st:'#2a7a7a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
