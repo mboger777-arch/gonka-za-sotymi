@@ -10,4 +10,4 @@
 - [x] tools/audit.py: текст в рамках и на экране, герои на земле/без растяжения, поворот — 0 fails (726 надписей)
 - [x] иконки assets/ui/icon180/192/512.png
 - [x] голос: 81 реплика (Qwen3-TTS), ASR small при генерации + независимая проверка whisper medium (tools/voice_verify_medium.jsonl); w_t03, w_t07, k_banana перегенерированы
-- [ ] публикация Pages, live-check
+- [x] публикация Pages (main, /), live-check: test_touch по живому URL × 3 размера — 0 fails; голос грузится и играет
