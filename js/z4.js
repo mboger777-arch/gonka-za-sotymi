@@ -3,7 +3,7 @@
 const Z4O=[30,75,150,205,250,275],Z4T=[{t:75,k:'s_t075'},{t:150,k:'s_t15'},{t:205,k:'s_t205'},{t:275,k:'s_t275'}];
 function z4geo(){const v=vis();const yTop=v.y0+262,yBot=gY('sea')-60;const gx=safeR()-70;const ox=bgXY(430,0)[0];return{yTop,yBot,gx,ox,sx:ox+260}}
 function z4y(d){const g=z4geo();return g.yTop+d/300*(g.yBot-g.yTop)}
-SC.z4={bubble(bw){// на мелководье облачко внизу, чтобы не закрывать Запятулю на рубке
+SC.z4={goalTop(bh){return ZS&&ZS.d<120?safeB()-bh-6:safeT()},goalX(){return ZS&&ZS.d<120?clamp(z4geo().sx-60,safeL()+430,safeR()-690):640},bubble(bw){// на мелководье облачко внизу, чтобы не закрывать Запятулю на рубке
   return ZS&&ZS.d<120?{x:clamp(z4geo().sx-60,safeL()+bw/2,safeR()-bw/2-260),top:safeB()-215,w:bw}:{x:640,top:safeT(),w:bw}},
  enter(){zoneStart(4,{d:0,td:0,i:0,got:[],open:{},grab:-9,hold:0,ht:0});BGN='sea';this.task(0);run(async()=>{await wait(300);await say('s1');await say('s2');await say(Z4T[0].k)})},
  task(i){ZS.i=i;GOAL='Опустись на '+dec(Z4T[i].t)+' м и хватай!'},

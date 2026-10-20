@@ -150,7 +150,7 @@ function drawTalk(){const v=vis();const top=safeT();
   // внутренняя область облачка (без хвостика)
   const iw=bw*.84,ih=bh*.6,cy=top+bh*.4;const nm=NAMES[talk.who];if(nm)txt(nm,bx-bw*.36,top+bh*.05,30,'#fff',{f:FONT,al:'left',st:'#2a7a7a',lw:6,box:[bx-bw/2,top-30,bx+bw/2,top+bh],id:'name'});
   textIn(talk.text,bx,cy+6,iw,ih,46,'#2b2440',{f:BODY,st:0,id:'talk',min:44});talk.box=[bx-bw/2,top,bw,bh*.8];return}
- if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;X.save();sprW('board',bx,top+bh/2,bw);X.restore();
+ if(GOAL){const bw=Math.min(860,v.w*.62),bh=bw/aspect('board');const bx=SCN&&SCN.goalX?SCN.goalX():640;const top=SCN&&SCN.goalTop?SCN.goalTop(bh):safeT();X.save();sprW('board',bx,top+bh/2,bw);X.restore();
   textIn(GOAL,bx,top+bh/2,bw*.84,bh*.56,46,'#4a2208',{f:BODY,st:'rgba(255,248,230,.8)',lw:4,id:'goal'})}}
 // ---- сцены ----
 const SC={};let scene='load',SCN=null,ZS=null;
